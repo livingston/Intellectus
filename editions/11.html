@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intellēctus No. 11</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+  /* Archive page styles */
+  .archive-list { margin-top: 24px; }
+  .archive-entry {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-light);
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+  .archive-entry:hover { color: var(--accent); }
+  .archive-edition {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .archive-date {
+    font-family: var(--font-body);
+    font-size: 14px;
+    flex: 1;
+  }
+  .archive-count {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--meta);
+    white-space: nowrap;
+  }
+  .publish-nav {
+    padding: 1rem 2rem;
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+  }
+  .publish-nav a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .publish-nav a:hover {
+    text-decoration: underline;
+  }
+  *, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #1a1410;
+  --paper: #f5f0e8;
+  --paper-dark: #ebe4d6;
+  --rule: #1a1410;
+  --rule-light: #c9bfa8;
+  --accent: #8b1a1a;
+  --meta: #6b5e4f;
+  --text-dark: #3a332a;
+  --sidebar-hover: #ddd8cc;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-ui: 'DM Sans', -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── Layout ── */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── History Sidebar ── */
+.history-sidebar {
+  width: 320px;
+  border-right: 2px solid var(--rule);
+  padding: 28px 20px;
+  background: var(--paper);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.history-sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.history-sidebar-header hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header hr:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.history-sidebar ul {
+  list-style: none;
+}
+
+.history-sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.sidebar-refresh {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.sidebar-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.history-day-group {
+  margin-bottom: 16px;
+}
+
+.history-day-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--meta);
+  padding: 8px 0 4px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.history-sidebar li:hover {
+  color: var(--accent);
+}
+
+.history-sidebar li:hover .history-date,
+.history-sidebar li:hover .history-time {
+  color: var(--accent);
+}
+
+.history-sidebar li.active .history-date,
+.history-sidebar li.active .history-time {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.history-sidebar li.active .history-count {
+  color: var(--accent);
+}
+
+.history-date {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  transition: color 0.15s;
+}
+
+.history-time {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--meta);
+  transition: color 0.15s;
+}
+
+.history-count {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--meta);
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+/* ── Digest View ── */
+.digest-view {
+  flex: 1;
+  padding: 0 24px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Masthead ── */
+.masthead {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.masthead-rule {
+  border: none;
+  border-top: 3px double var(--rule);
+  margin-bottom: 12px;
+}
+
+.masthead-meta {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--meta);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.masthead h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(48px, 8vw, 88px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.masthead-tagline {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--meta);
+  margin-bottom: 16px;
+}
+
+.masthead-rule-bottom {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 4px;
+}
+
+.masthead-rule-thick {
+  border: none;
+  border-top: 3px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.refresh-btn {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.refresh-btn:hover {
+  background: var(--accent);
+}
+
+/* ── Digest Content ── */
+.digest-content h1,
+.digest-content h2,
+.digest-content h3 {
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+.digest-content h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1.15;
+  text-align: center;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 16px;
+}
+
+/* Drop cap on first paragraph after h1 */
+.digest-content h1 + p::first-letter {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3.8em;
+  float: left;
+  line-height: 0.8;
+  margin: 0.05em 0.04em 0 0;
+  color: var(--accent);
+}
+
+/* Intro paragraph */
+.digest-content h1 + p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-dark);
+}
+
+.digest-content h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--rule);
+  color: var(--ink);
+}
+
+.digest-content h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  font-style: italic;
+}
+
+.digest-content p {
+  font-size: 15px;
+  margin-bottom: 14px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.digest-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.digest-content a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.digest-content ul,
+.digest-content ol {
+  margin-bottom: 14px;
+  padding-left: 20px;
+  font-size: 15px;
+}
+
+.digest-content li {
+  margin-bottom: 6px;
+}
+
+/* Ornamental separators */
+.digest-content hr {
+  border: none;
+  text-align: center;
+  margin: 28px 0;
+}
+
+.digest-content hr::after {
+  content: "~ ~ ~";
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--rule-light);
+  letter-spacing: 0.3em;
+}
+
+/* ── Desktop: multi-column broadsheet ── */
+@media (min-width: 768px) {
+  .digest-content {
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px solid var(--rule-light);
+  }
+
+  .digest-content h1 {
+    column-span: all;
+    font-size: 36px;
+  }
+
+  .digest-content h1 + p {
+    column-span: all;
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 28px;
+  }
+
+  .digest-content h2 {
+    column-span: all;
+  }
+
+  .digest-content hr {
+    column-span: all;
+  }
+}
+
+@media (min-width: 1080px) {
+  .digest-content {
+    column-count: 3;
+    column-gap: 36px;
+  }
+
+  .digest-content h1 {
+    font-size: 44px;
+  }
+}
+
+/* ── Calendar Widget ── */
+.cal-widget {
+  margin-top: 24px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cal-month-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.cal-nav {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.cal-nav:hover {
+  color: var(--accent);
+}
+
+.cal-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.cal-weekday {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--meta);
+  text-transform: uppercase;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.cal-day {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  padding: 4px 0 8px;
+  position: relative;
+  color: var(--meta);
+}
+
+.cal-day.cal-has-editions {
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cal-day.cal-has-editions:hover {
+  color: var(--accent);
+}
+
+.cal-day.cal-selected {
+  background: var(--paper-dark);
+  border-radius: 4px;
+}
+
+.cal-day.cal-today {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cal-dot {
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cal-editions {
+  list-style: none;
+  margin-top: 8px;
+  border-top: 1px solid var(--rule-light);
+  padding-top: 8px;
+}
+
+.cal-editions li {
+  padding: 6px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.cal-editions li:hover {
+  color: var(--accent);
+}
+
+.cal-editions li:hover .history-date,
+.cal-editions li:hover .history-time {
+  color: var(--accent);
+}
+
+/* ── Mobile: hide sidebar, adjust masthead ── */
+@media (max-width: 767px) {
+  .cal-widget {
+    display: none;
+  }
+
+  .app {
+    flex-direction: column;
+  }
+
+  .history-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--rule-light);
+    padding: 16px;
+    position: static;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .history-sidebar ul {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .history-sidebar li {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-bottom: none;
+    border-top: none;
+  }
+
+  .history-sidebar li:first-child {
+    border-top: none;
+  }
+
+  .history-sidebar .history-count {
+    display: none;
+  }
+
+  .masthead-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .digest-view {
+    padding: 0 16px 48px;
+  }
+
+  .digest-content p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+
+/* ── Empty / Loading / Error States ── */
+.empty-state,
+.loading,
+.error-state {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.error-state h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.error-state p {
+  font-size: 16px;
+  color: var(--meta);
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty-state h2 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-size: 18px;
+  color: var(--meta);
+  margin-bottom: 24px;
+}
+
+.loading p {
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.loading-sub {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--meta);
+  margin-top: 8px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="publish-nav">
+      <a href="index.html">← Archive</a>
+    </nav>
+    <main>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Tuesday, March 17, 2026 · 3:56 AM</span><span>No. 11</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 16, 2026</h1>
+<p>The AI developer ecosystem is buzzing today with a recurring theme: context is king. From the community&#x27;s obsession with Claude&#x27;s 1M token window to multi-agent routing patterns, developers are rapidly figuring out what actually changes when you can hold an entire codebase in memory. Meanwhile, Claude Code continues its quiet takeover of the agentic coding workflow — even among non-coders.</p>
+<hr/>
+<h2>🧠 LLM Context &amp; Capabilities</h2>
+<p><strong><a href="https://reddit.com/r/ClaudeAI/comments/1rvmqs2/1_mil_context_is_so_good/">1 million context is so good</a></strong> — The r/ClaudeAI community is effusive about Claude&#x27;s 1M token context window, with users noting it eliminates entire categories of engineering workarounds: complex memory systems, context-handoff pipelines, and state management hacks. As one user put it, what remains is drift guardrails and progress notes — everything else just fits.</p>
+<p><strong><a href="https://x.com/AaronBergman18/status/2033669186807882150">1M context in Claude Code</a></strong> — Developer Aaron Bergman adds nuance: most tasks don&#x27;t <em>need</em> 800k tokens, but the real unlock is the 200k–400k range opening up for everyday workflows that previously required chunking. More headroom means less context anxiety, not necessarily full utilization.</p>
+<hr/>
+<h2>🤖 Agents &amp; Multi-Agent Architecture</h2>
+<p><strong><a href="https://x.com/eng_khairallah1/status/2033669285890167147">LangChain open-sources &quot;Deep Agents&quot;</a></strong> — LangChain reportedly reverse-engineered the core patterns behind Claude Code&#x27;s effectiveness and shipped them as an open-source framework called Deep Agents, designed to work with any model. If accurate, this is a significant architectural gift to the broader agentic development community — watch this one closely.</p>
+<p><strong><a href="https://x.com/builtbyzac/status/2033670643284381730">Thin routing layers in multi-agent Claude Code projects</a></strong> — Developer @builtbyzac describes a pattern for Claude Code multi-agent setups: a lightweight routing layer that decides which context each sub-agent loads, rather than broadcasting everything to all agents. This is the architectural answer to context cost blowout in orchestrated systems — selective context loading per agent role.</p>
+<p><strong><a href="https://agentsandaimpires.com/">Agents &amp; A.I.mpires — AI-native RTS</a></strong> — A developer is building a persistent real-time strategy game on a 41,000-hex globe where <em>your AI agent plays on your behalf</em>. It&#x27;s an early but fascinating proof-of-concept for AI agents as interactive game proxies — worth watching as autonomous agent capabilities mature.</p>
+<hr/>
+<h2>🛠️ Claude Code Developer Corner</h2>
+<h3>Workflow Patterns &amp; Productivity</h3>
+<p><strong><a href="https://x.com/d_a_v_e_ai/status/2033669959067287718"><code>/plan</code> command for better output</a></strong> — Developers are flagging <code>/plan</code> as a high-leverage command in Claude Code: reportedly delivers 10x better output with significantly lower token burn. If you&#x27;re not using it before complex implementation tasks, you&#x27;re leaving quality on the table.</p>
+<p><strong><a href="https://x.com/_brian_johnson/status/2033670422655279554">Live token counter changes behavior</a></strong> — One developer reports keeping a real-time token counter in their menu bar while using Claude Code, calling it transformative for intentional context management. Watching the burn rate in real-time makes you rethink what actually needs to go into context.</p>
+<p><strong><a href="https://x.com/garandou0/status/2033669200443805796">Rate limit workaround for Claude Opus</a></strong> — Hitting rate limits on Claude Code with Opus? Setting the environment variable <code>CLAUDE_CODE_DISABLE_1M_CONTEXT=1</code> disables the 1M context window and resolves the issue. Useful if you&#x27;re on a plan where Opus + max context triggers throttling.</p>
+<h3>MCP &amp; Integrations</h3>
+<p><strong><a href="https://x.com/grok/status/2033670490917675168">Framer MCP plugin with Claude</a></strong> — The Framer MCP plugin (by Tommy D. Rossi) runs a secure local server that lets Claude (or Cursor) read layers, edit styles, and insert components directly in Framer projects. It&#x27;s a clean example of MCP enabling design-tool-level access for coding agents.</p>
+<p><strong><a href="https://x.com/gubatron/status/2033669024828297410">MCP server cross-compatibility</a></strong> — Developer @gubatron shows MCP server configuration syntax across Claude Code, OpenAI Codex, Qwen Code, and GitHub Copilot CLI — all pointing at the same local MCP server (<code>mentisdb</code>). MCP is quietly becoming the interop layer between coding agents.</p>
+<h3>Agents vs. Local vs. Cloud</h3>
+<p><strong><a href="https://x.com/bourneshao/status/2033670517782106488">Local Claude Code vs. cloud agents</a></strong> — A developer with months of local Claude Code experience makes the case bluntly: local wins. When Claude can see your actual files, read git history, and run your scripts directly, it&#x27;s categorically more effective than cloud-based agents working through abstraction layers. &quot;Like working through a translator&quot; is how cloud agents are described.</p>
+<p><strong><a href="https://x.com/kenshin_morioka/status/2033668973976514805">Code review still required</a></strong> — A counterweight to the hype: a regular Claude Code user insists AI-generated code still needs human review, especially for production logic. Disposable prototypes are one thing; anything with real calculation logic is another. Important calibration for teams considering full autonomy.</p>
+<p><strong><a href="https://x.com/K_oneplanet/status/2033670518969438604">Claude Code beyond coding</a></strong> — A solo business operator who writes zero code describes using Claude Code daily as a secretary and content producer — starting every morning with &quot;good morning&quot; and delegating from there. Claude Code&#x27;s CLI-native, agentic model is proving useful well outside pure software development.</p>
+<h3>Architecture Notes</h3>
+<p><strong><a href="https://x.com/ClaudiusMaxx/status/2033669640145011167">OpenClaw vs. Claude Code distinction</a></strong> — A useful framing from the community: OpenClaw is an <em>orchestration layer</em>, Claude Code is a <em>coding agent</em>. Running a coding agent through an orchestration layer is still coding — the distinction is who&#x27;s dispatching the work, not what work is being done. Relevant for anyone building multi-agent pipelines.</p>
+<hr/>
+<h2>👀 Worth Watching</h2>
+<ul>
+<li><strong><a href="https://x.com/apoorvdarshan/status/2033669933893407056">Voice-driven terminal control (&quot;Scowld&quot;)</a></strong> — Developer building voice-driven SSH, zsh, diff review, and deployment into a local AI assistant called Scowld. Described as &quot;Claude Code but you just talk to it.&quot; Repo is public, PRs open.</li>
+<li><strong><a href="https://x.com/hyuki/status/2033669638576607329">AI secretary with introspection</a></strong> — Japanese developer built an AI secretary (&quot;Poppy&quot;) using Claude Code that engages in internal dialogue before speaking — an early experiment in agent introspection and proactive communication patterns.</li>
+<li><strong><a href="https://x.com/yashyoshida/status/2033670299749933365">Claude Code&#x27;s &quot;Thinking&quot; output as language practice</a></strong> — Lighthearted but real: a developer notes that carefully reading Claude Code&#x27;s extended thinking traces is measurably improving their English reading speed. Unintended side effect of verbose reasoning models.</li>
+<li><strong><a href="https://x.com/ha_chi_co_3/status/2033669890230657443">Custom GPT vs. Claude Code shift</a></strong> — A Japanese AI educator notes that since Claude Code&#x27;s arrival, Custom GPTs have seen much less use in their workflow — but argues the underlying skill of <em>deciding what to delegate</em> remains the same regardless of tool.</li>
+</ul>
+<hr/>
+<p><em>That&#x27;s the briefing for March 16. Big themes today: context window ergonomics, multi-agent routing patterns, and MCP as the emerging agent interop standard. The <code>CLAUDE_CODE_DISABLE_1M_CONTEXT=1</code> env var tip alone is worth bookmarking if you&#x27;re hitting Opus rate limits.</em></p></article></div>
+    </main>
+  </div>
+</body>
+</html>

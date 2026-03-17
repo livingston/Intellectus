@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intellēctus No. 6</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+  /* Archive page styles */
+  .archive-list { margin-top: 24px; }
+  .archive-entry {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-light);
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+  .archive-entry:hover { color: var(--accent); }
+  .archive-edition {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .archive-date {
+    font-family: var(--font-body);
+    font-size: 14px;
+    flex: 1;
+  }
+  .archive-count {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--meta);
+    white-space: nowrap;
+  }
+  .publish-nav {
+    padding: 1rem 2rem;
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+  }
+  .publish-nav a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .publish-nav a:hover {
+    text-decoration: underline;
+  }
+  *, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #1a1410;
+  --paper: #f5f0e8;
+  --paper-dark: #ebe4d6;
+  --rule: #1a1410;
+  --rule-light: #c9bfa8;
+  --accent: #8b1a1a;
+  --meta: #6b5e4f;
+  --text-dark: #3a332a;
+  --sidebar-hover: #ddd8cc;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-ui: 'DM Sans', -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── Layout ── */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── History Sidebar ── */
+.history-sidebar {
+  width: 320px;
+  border-right: 2px solid var(--rule);
+  padding: 28px 20px;
+  background: var(--paper);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.history-sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.history-sidebar-header hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header hr:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.history-sidebar ul {
+  list-style: none;
+}
+
+.history-sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.sidebar-refresh {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.sidebar-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.history-day-group {
+  margin-bottom: 16px;
+}
+
+.history-day-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--meta);
+  padding: 8px 0 4px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.history-sidebar li:hover {
+  color: var(--accent);
+}
+
+.history-sidebar li:hover .history-date,
+.history-sidebar li:hover .history-time {
+  color: var(--accent);
+}
+
+.history-sidebar li.active .history-date,
+.history-sidebar li.active .history-time {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.history-sidebar li.active .history-count {
+  color: var(--accent);
+}
+
+.history-date {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  transition: color 0.15s;
+}
+
+.history-time {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--meta);
+  transition: color 0.15s;
+}
+
+.history-count {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--meta);
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+/* ── Digest View ── */
+.digest-view {
+  flex: 1;
+  padding: 0 24px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Masthead ── */
+.masthead {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.masthead-rule {
+  border: none;
+  border-top: 3px double var(--rule);
+  margin-bottom: 12px;
+}
+
+.masthead-meta {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--meta);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.masthead h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(48px, 8vw, 88px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.masthead-tagline {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--meta);
+  margin-bottom: 16px;
+}
+
+.masthead-rule-bottom {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 4px;
+}
+
+.masthead-rule-thick {
+  border: none;
+  border-top: 3px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.refresh-btn {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.refresh-btn:hover {
+  background: var(--accent);
+}
+
+/* ── Digest Content ── */
+.digest-content h1,
+.digest-content h2,
+.digest-content h3 {
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+.digest-content h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1.15;
+  text-align: center;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 16px;
+}
+
+/* Drop cap on first paragraph after h1 */
+.digest-content h1 + p::first-letter {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3.8em;
+  float: left;
+  line-height: 0.8;
+  margin: 0.05em 0.04em 0 0;
+  color: var(--accent);
+}
+
+/* Intro paragraph */
+.digest-content h1 + p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-dark);
+}
+
+.digest-content h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--rule);
+  color: var(--ink);
+}
+
+.digest-content h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  font-style: italic;
+}
+
+.digest-content p {
+  font-size: 15px;
+  margin-bottom: 14px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.digest-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.digest-content a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.digest-content ul,
+.digest-content ol {
+  margin-bottom: 14px;
+  padding-left: 20px;
+  font-size: 15px;
+}
+
+.digest-content li {
+  margin-bottom: 6px;
+}
+
+/* Ornamental separators */
+.digest-content hr {
+  border: none;
+  text-align: center;
+  margin: 28px 0;
+}
+
+.digest-content hr::after {
+  content: "~ ~ ~";
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--rule-light);
+  letter-spacing: 0.3em;
+}
+
+/* ── Desktop: multi-column broadsheet ── */
+@media (min-width: 768px) {
+  .digest-content {
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px solid var(--rule-light);
+  }
+
+  .digest-content h1 {
+    column-span: all;
+    font-size: 36px;
+  }
+
+  .digest-content h1 + p {
+    column-span: all;
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 28px;
+  }
+
+  .digest-content h2 {
+    column-span: all;
+  }
+
+  .digest-content hr {
+    column-span: all;
+  }
+}
+
+@media (min-width: 1080px) {
+  .digest-content {
+    column-count: 3;
+    column-gap: 36px;
+  }
+
+  .digest-content h1 {
+    font-size: 44px;
+  }
+}
+
+/* ── Calendar Widget ── */
+.cal-widget {
+  margin-top: 24px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cal-month-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.cal-nav {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.cal-nav:hover {
+  color: var(--accent);
+}
+
+.cal-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.cal-weekday {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--meta);
+  text-transform: uppercase;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.cal-day {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  padding: 4px 0 8px;
+  position: relative;
+  color: var(--meta);
+}
+
+.cal-day.cal-has-editions {
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cal-day.cal-has-editions:hover {
+  color: var(--accent);
+}
+
+.cal-day.cal-selected {
+  background: var(--paper-dark);
+  border-radius: 4px;
+}
+
+.cal-day.cal-today {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cal-dot {
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cal-editions {
+  list-style: none;
+  margin-top: 8px;
+  border-top: 1px solid var(--rule-light);
+  padding-top: 8px;
+}
+
+.cal-editions li {
+  padding: 6px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.cal-editions li:hover {
+  color: var(--accent);
+}
+
+.cal-editions li:hover .history-date,
+.cal-editions li:hover .history-time {
+  color: var(--accent);
+}
+
+/* ── Mobile: hide sidebar, adjust masthead ── */
+@media (max-width: 767px) {
+  .cal-widget {
+    display: none;
+  }
+
+  .app {
+    flex-direction: column;
+  }
+
+  .history-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--rule-light);
+    padding: 16px;
+    position: static;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .history-sidebar ul {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .history-sidebar li {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-bottom: none;
+    border-top: none;
+  }
+
+  .history-sidebar li:first-child {
+    border-top: none;
+  }
+
+  .history-sidebar .history-count {
+    display: none;
+  }
+
+  .masthead-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .digest-view {
+    padding: 0 16px 48px;
+  }
+
+  .digest-content p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+
+/* ── Empty / Loading / Error States ── */
+.empty-state,
+.loading,
+.error-state {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.error-state h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.error-state p {
+  font-size: 16px;
+  color: var(--meta);
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty-state h2 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-size: 18px;
+  color: var(--meta);
+  margin-bottom: 24px;
+}
+
+.loading p {
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.loading-sub {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--meta);
+  margin-top: 8px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="publish-nav">
+      <a href="index.html">← Archive</a>
+    </nav>
+    <main>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Monday, March 16, 2026 · 12:01 PM</span><span>No. 6</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 16, 2026</h1>
+<p>Today&#x27;s AI landscape is buzzing with ecosystem activity: a new wave of tooling is expanding what Claude Code can do, while the broader startup world grapples with separating signal from noise in an ocean of &quot;AI wrappers.&quot; Meanwhile, researchers push forward on embodied agents, physically-plausible motion generation, and WiFi-based human tracking that sounds straight out of science fiction.</p>
+<hr/>
+<h2>🏭 Industry Moves</h2>
+<p><strong><a href="https://techcrunch.com/2026/03/15/google-and-accel-cut-through-wrappers-in-4000-ai-startup-pitches-to-pick-five-tied-to-india/">Google and Accel&#x27;s Atoms cohort rejects 70% &quot;wrapper&quot; AI startups</a></strong> — after reviewing more than 4,000 India-tied applications, Google and Accel selected just five startups for their Atoms accelerator, explicitly filtering out the ~70% of pitches that amounted to thin API wrappers around existing models. The chosen five demonstrate genuine technical differentiation, signaling that sophisticated investors are raising the bar for what counts as a defensible AI business.</p>
+<p><strong><a href="https://x.com/overglobe/status/2033430460643287334">Anthropic Academy launches with 13+ free certified courses</a></strong> — Anthropic quietly rolled out Anthropic Academy, offering 13+ official courses complete with certificates at no cost. Multiple developers on X are already sharing completion badges from the flagship <em>Claude Code in Action</em> course, which covers context management, agent orchestration, and workflow automation.</p>
+<p><strong><a href="https://x.com/HariuYasushi/status/2033430219768594761">Claude&#x27;s off-peak usage doubles automatically for Pro subscribers</a></strong> — Anthropic has activated a 2x usage multiplier for Pro plan users: weekdays outside 5–11am Pacific Time and all day on weekends automatically get double limits with no configuration required. Japanese-language developer communities in particular are celebrating the timing, which aligns with evening/overnight hours in Asia.</p>
+<hr/>
+<h2>🔬 Research Papers</h2>
+<p><strong><a href="http://arxiv.org/abs/2603.13228v1">PhysMoDPO brings physics plausibility to diffusion-based motion generation</a></strong> — diffusion models for text-conditioned human motion are strong at fluency but tend to violate physical constraints. PhysMoDPO applies preference optimization to directly reward physically-plausible outputs, pushing the frontier on realistic humanoid motion for games, robotics, and animation.</p>
+<p><strong><a href="http://arxiv.org/abs/2603.13224v1">Visual-ERM introduces reward modeling for vision-to-code fidelity</a></strong> — reconstructing charts, tables, and SVGs into structured code demands high visual fidelity, but standard metrics miss subtle rendering errors. Visual-ERM proposes a dedicated reward model for visual equivalence, giving LLM pipelines a tighter feedback signal for code generation from visual inputs.</p>
+<p><strong><a href="http://arxiv.org/abs/2603.13173v1">Semantic Invariance in Agentic AI flags a critical reliability gap</a></strong> — LLM agents increasingly run in high-stakes decision support roles, but the paper shows they often produce inconsistent outputs for semantically equivalent inputs. The authors propose semantic invariance as a formal reliability property and benchmark current models against it — relevant reading for anyone deploying Claude Code agents in production.</p>
+<p><strong><a href="http://arxiv.org/abs/2603.13189v1">LLM Constitutional Multi-Agent Governance explores alignment through multi-agent constitutions</a></strong> — the paper examines whether constitutionally-guided LLM agents can steer cooperative behavior in multi-agent populations without degenerating into manipulation. Results suggest the framing of cooperation matters as much as the rules themselves.</p>
+<hr/>
+<h2>🤖 Embodied Agents &amp; Robotics</h2>
+<p><strong><a href="http://arxiv.org/abs/2603.13131v1">Steve-Evolving introduces self-improving open-world agents via dual-track knowledge distillation</a></strong> — rather than focusing on single-step planning quality, Steve-Evolving targets the harder problem of organizing and evolving interaction experience over long horizons. The dual-track distillation separates fine-grained diagnosis from knowledge consolidation, producing agents that measurably improve across extended Minecraft sessions.</p>
+<p><strong><a href="https://reddit.com/r/artificial/comments/1ruzmks/wifidensepose_ai_can_track_body_positions_through/">WiFi-DensePose reconstructs full-body positions through walls in real time</a></strong> — using only standard WiFi signals, researchers demonstrate real-time dense pose estimation that works through solid walls without cameras. The privacy and security implications are significant, but so are the potential applications in healthcare monitoring and smart environments.</p>
+<p><strong><a href="http://arxiv.org/abs/2603.13100v1">Evaluating VLMs for robot motion planning with spatial preferences</a></strong> — this benchmark systematically tests how well vision-language models understand spatial relations and user motion instructions for robot planning, exposing consistent failure modes that suggest current VLMs need dedicated spatial reasoning improvements before reliable physical deployment.</p>
+<hr/>
+<h2>🛠️ Open Source &amp; Tools</h2>
+<p><strong><a href="https://github.com/QAInsights/AIx">Quillx / AIx — an open standard for disclosing AI involvement in software projects</a></strong> — as AI-assisted development becomes the norm, the AIx standard proposes a machine-readable format for declaring <em>how</em> AI was used in a codebase. Think <code>.aiignore</code> meets SBOM for AI contributions.</p>
+<p><strong><a href="https://reddit.com/r/MachineLearning/comments/1rv0lph/p_qore_a_normalized_pricing_unit_ntu_of_cross/">QORE introduces normalized pricing units for cross-provider AI cost comparison</a></strong> — incompatible token definitions across providers make multi-model cost tracking a mess. QORE (<code>pip install qore</code>) defines a Normalized Token Unit (NTU) so you can price, route, and audit API calls consistently across OpenAI, Anthropic, Google, and others with a single CLI.</p>
+<p><strong><a href="https://www.stavros.io/posts/how-i-write-software-with-llms/">How I write software with LLMs — a practitioner&#x27;s workflow deep-dive</a></strong> — a detailed personal account of integrating LLMs into a real development workflow, covering what works, what breaks, and the mental model shifts required. Useful counterweight to both the hype and the dismissal.</p>
+<hr/>
+<h2>👾 Claude Code Developer Corner</h2>
+<h3>New Tooling: Kangentic — Visual Orchestration for Claude Code</h3>
+<p><strong><a href="https://v.redd.it/sglli9gnibpg1">Kangentic</a></strong> is a free, local, open-source desktop app that adds a visual orchestration layer <em>on top of</em> Claude Code without replacing or modifying the CLI. It runs the native Claude Code binary directly, so all your existing commands, hooks, and configuration remain intact — you simply get a graphical view of what&#x27;s happening. <strong>What you can do now:</strong> visualize multi-agent Claude Code sessions in real time, making it far easier to debug and coordinate parallel workstreams. No new dependencies or API keys required.</p>
+<h3>What the Community Is Building</h3>
+<ul>
+<li><strong>7-agent 3D visualization</strong> — <a href="https://x.com/ghstxbt/status/2033430413700739192">@om_patel5</a> shared a live 3D render of 7 simultaneous Claude Code agents running in parallel, illustrating the orchestration complexity becoming common in production setups.</li>
+<li><strong>Pentagon budget document analysis</strong> — <a href="https://x.com/wmertens/status/2033430328807711145">@Argona0x</a> pointed Claude Code at the Pentagon&#x27;s public budget documents and tasked it with finding contracts overpaying by 10x or more — a compelling demonstration of Claude Code as a document intelligence agent on large unstructured datasets.</li>
+<li><strong>X/Twitter post automation via Typefully API</strong> — developers are building <code>/x-post</code> slash-command skills combining the X API with Typefully for draft-saving, then orchestrating via Claude Code for automated social publishing workflows.</li>
+<li><strong>14 years of daily journals → 5,000 markdown files</strong> — <a href="https://x.com/thedanyalrao/status/2033429991854326096">@om_patel5</a> highlighted a project feeding a decade-plus of personal journals into Claude Code for structured knowledge extraction and analysis.</li>
+</ul>
+<h3>Context Window Update (5x Workspace)</h3>
+<p>Japanese developer community posts confirm that Claude Code has received a significant context window expansion — described as &quot;5x the working area&quot; made freely available. If you&#x27;ve been hitting context limits mid-session on large codebases or reports, this is the update to test. The expansion appears to apply automatically with no configuration changes needed.</p>
+<h3>Ecosystem: Alternatives &amp; Competing Agents</h3>
+<ul>
+<li><strong>LangChain Deep Agents</strong> — <a href="https://x.com/latecnologialat/status/2033430264152510475">LangChain has launched Deep Agents</a>, an MIT-licensed open-source alternative to Claude Code for coding agents, supporting multiple providers. Worth watching for teams that need provider flexibility or self-hosted deployments.</li>
+<li><strong>OpenSquirrel</strong> — <a href="https://x.com/1stOrator/status/2033430165221724368">@elliotarledge</a> shipped OpenSquirrel, written in pure Rust using the GPUI framework (same as Zed editor), with agent capabilities — framed as a response to Karpathy&#x27;s public request for a Rust-native agentic coding tool.</li>
+<li><strong>Containerized Claude Code alternative</strong> — <a href="https://x.com/CompanyHicoco/status/2033430061270044706">@aduermael</a> is building a containerized-by-default, multi-provider alternative for teams that need stronger sandboxing guarantees.</li>
+</ul>
+<h3>Anthropic Academy: Claude Code in Action Course</h3>
+<p>Multiple developers are completing <a href="https://x.com/chop_trader/status/2033430267009098119">Anthropic Academy&#x27;s <em>Claude Code in Action</em> course</a> and sharing their top takeaways:</p>
+<ol>
+<li>Context quality is the primary lever for output quality</li>
+<li>Agent orchestration patterns matter more than prompt wording alone</li>
+<li>Workflow automation for non-engineers is a first-class use case</li>
+</ol>
+<p>The course is free with a certificate — worth an afternoon for anyone building on Claude Code.</p>
+<hr/>
+<h2>👀 Worth Watching</h2>
+<ul>
+<li><strong><a href="https://reddit.com/r/MachineLearning/comments/1ruxn9t/p_using_residual_ml_correction_on_top_of_a/">F1Predict: Residual ML correction on top of a physics simulator</a></strong> — a CSE student project using a hybrid deterministic lap-time engine + ML correction layer for F1 race strategy prediction. Clean architecture worth studying for any hybrid physics/ML problem.</li>
+<li><strong><a href="http://arxiv.org/abs/2603.13186v1">Learnability and privacy vulnerability concentrated in a few critical weights</a></strong> — prior privacy preservation methods retrain all weights unnecessarily. This paper argues learnability and membership vulnerability are co-localized in a small subset of weights, opening the door to much cheaper privacy-preserving fine-tuning.</li>
+<li><strong><a href="http://arxiv.org/abs/2603.13180v1">MXNorm: reusing MXFP block scales for tensor normalization</a></strong> — a low-level inference efficiency paper showing that the block scale metadata generated during MXFP quantized matrix multiply can be reused for layer normalization at essentially no extra cost. Relevant for anyone optimizing LLM inference on modern accelerators.</li>
+<li><strong><a href="http://arxiv.org/abs/2603.13154v1">ESG-Bench: hallucination mitigation benchmark for long-context ESG reports</a></strong> — as ESG reporting becomes legally mandated in more jurisdictions, this benchmark tests LLM accuracy on long, highly structured corporate documents where hallucination has real legal and financial consequences.</li>
+<li><strong><a href="https://reddit.com/r/MachineLearning/comments/1rux8j1/d_anyone_else_facing_issues_with_dataset_track/">ACM MM 2026 Dataset Track submission confusion</a></strong> — if you&#x27;re submitting to ACM MM 2026&#x27;s Dataset Track, the OpenReview portal is apparently missing the submission link despite guidelines saying it&#x27;s required. Check before your deadline.</li>
+</ul>
+<hr/>
+<p><em>Briefing covers articles published through ~06:30 UTC March 16, 2026. Non-AI articles from the feed (Hutterites, cannabinoids/Alzheimer&#x27;s) omitted as out of scope.</em></p></article></div>
+    </main>
+  </div>
+</body>
+</html>

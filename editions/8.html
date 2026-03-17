@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intellēctus No. 8</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+  /* Archive page styles */
+  .archive-list { margin-top: 24px; }
+  .archive-entry {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-light);
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+  .archive-entry:hover { color: var(--accent); }
+  .archive-edition {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .archive-date {
+    font-family: var(--font-body);
+    font-size: 14px;
+    flex: 1;
+  }
+  .archive-count {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--meta);
+    white-space: nowrap;
+  }
+  .publish-nav {
+    padding: 1rem 2rem;
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+  }
+  .publish-nav a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .publish-nav a:hover {
+    text-decoration: underline;
+  }
+  *, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #1a1410;
+  --paper: #f5f0e8;
+  --paper-dark: #ebe4d6;
+  --rule: #1a1410;
+  --rule-light: #c9bfa8;
+  --accent: #8b1a1a;
+  --meta: #6b5e4f;
+  --text-dark: #3a332a;
+  --sidebar-hover: #ddd8cc;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-ui: 'DM Sans', -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── Layout ── */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── History Sidebar ── */
+.history-sidebar {
+  width: 320px;
+  border-right: 2px solid var(--rule);
+  padding: 28px 20px;
+  background: var(--paper);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.history-sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.history-sidebar-header hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header hr:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.history-sidebar ul {
+  list-style: none;
+}
+
+.history-sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.sidebar-refresh {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.sidebar-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.history-day-group {
+  margin-bottom: 16px;
+}
+
+.history-day-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--meta);
+  padding: 8px 0 4px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.history-sidebar li:hover {
+  color: var(--accent);
+}
+
+.history-sidebar li:hover .history-date,
+.history-sidebar li:hover .history-time {
+  color: var(--accent);
+}
+
+.history-sidebar li.active .history-date,
+.history-sidebar li.active .history-time {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.history-sidebar li.active .history-count {
+  color: var(--accent);
+}
+
+.history-date {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  transition: color 0.15s;
+}
+
+.history-time {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--meta);
+  transition: color 0.15s;
+}
+
+.history-count {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--meta);
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+/* ── Digest View ── */
+.digest-view {
+  flex: 1;
+  padding: 0 24px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Masthead ── */
+.masthead {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.masthead-rule {
+  border: none;
+  border-top: 3px double var(--rule);
+  margin-bottom: 12px;
+}
+
+.masthead-meta {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--meta);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.masthead h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(48px, 8vw, 88px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.masthead-tagline {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--meta);
+  margin-bottom: 16px;
+}
+
+.masthead-rule-bottom {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 4px;
+}
+
+.masthead-rule-thick {
+  border: none;
+  border-top: 3px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.refresh-btn {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.refresh-btn:hover {
+  background: var(--accent);
+}
+
+/* ── Digest Content ── */
+.digest-content h1,
+.digest-content h2,
+.digest-content h3 {
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+.digest-content h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1.15;
+  text-align: center;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 16px;
+}
+
+/* Drop cap on first paragraph after h1 */
+.digest-content h1 + p::first-letter {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3.8em;
+  float: left;
+  line-height: 0.8;
+  margin: 0.05em 0.04em 0 0;
+  color: var(--accent);
+}
+
+/* Intro paragraph */
+.digest-content h1 + p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-dark);
+}
+
+.digest-content h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--rule);
+  color: var(--ink);
+}
+
+.digest-content h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  font-style: italic;
+}
+
+.digest-content p {
+  font-size: 15px;
+  margin-bottom: 14px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.digest-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.digest-content a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.digest-content ul,
+.digest-content ol {
+  margin-bottom: 14px;
+  padding-left: 20px;
+  font-size: 15px;
+}
+
+.digest-content li {
+  margin-bottom: 6px;
+}
+
+/* Ornamental separators */
+.digest-content hr {
+  border: none;
+  text-align: center;
+  margin: 28px 0;
+}
+
+.digest-content hr::after {
+  content: "~ ~ ~";
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--rule-light);
+  letter-spacing: 0.3em;
+}
+
+/* ── Desktop: multi-column broadsheet ── */
+@media (min-width: 768px) {
+  .digest-content {
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px solid var(--rule-light);
+  }
+
+  .digest-content h1 {
+    column-span: all;
+    font-size: 36px;
+  }
+
+  .digest-content h1 + p {
+    column-span: all;
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 28px;
+  }
+
+  .digest-content h2 {
+    column-span: all;
+  }
+
+  .digest-content hr {
+    column-span: all;
+  }
+}
+
+@media (min-width: 1080px) {
+  .digest-content {
+    column-count: 3;
+    column-gap: 36px;
+  }
+
+  .digest-content h1 {
+    font-size: 44px;
+  }
+}
+
+/* ── Calendar Widget ── */
+.cal-widget {
+  margin-top: 24px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cal-month-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.cal-nav {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.cal-nav:hover {
+  color: var(--accent);
+}
+
+.cal-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.cal-weekday {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--meta);
+  text-transform: uppercase;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.cal-day {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  padding: 4px 0 8px;
+  position: relative;
+  color: var(--meta);
+}
+
+.cal-day.cal-has-editions {
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cal-day.cal-has-editions:hover {
+  color: var(--accent);
+}
+
+.cal-day.cal-selected {
+  background: var(--paper-dark);
+  border-radius: 4px;
+}
+
+.cal-day.cal-today {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cal-dot {
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cal-editions {
+  list-style: none;
+  margin-top: 8px;
+  border-top: 1px solid var(--rule-light);
+  padding-top: 8px;
+}
+
+.cal-editions li {
+  padding: 6px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.cal-editions li:hover {
+  color: var(--accent);
+}
+
+.cal-editions li:hover .history-date,
+.cal-editions li:hover .history-time {
+  color: var(--accent);
+}
+
+/* ── Mobile: hide sidebar, adjust masthead ── */
+@media (max-width: 767px) {
+  .cal-widget {
+    display: none;
+  }
+
+  .app {
+    flex-direction: column;
+  }
+
+  .history-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--rule-light);
+    padding: 16px;
+    position: static;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .history-sidebar ul {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .history-sidebar li {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-bottom: none;
+    border-top: none;
+  }
+
+  .history-sidebar li:first-child {
+    border-top: none;
+  }
+
+  .history-sidebar .history-count {
+    display: none;
+  }
+
+  .masthead-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .digest-view {
+    padding: 0 16px 48px;
+  }
+
+  .digest-content p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+
+/* ── Empty / Loading / Error States ── */
+.empty-state,
+.loading,
+.error-state {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.error-state h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.error-state p {
+  font-size: 16px;
+  color: var(--meta);
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty-state h2 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-size: 18px;
+  color: var(--meta);
+  margin-bottom: 24px;
+}
+
+.loading p {
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.loading-sub {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--meta);
+  margin-top: 8px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="publish-nav">
+      <a href="index.html">← Archive</a>
+    </nav>
+    <main>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Monday, March 16, 2026 · 6:01 PM</span><span>No. 8</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 16, 2026</h1>
+<p>The community is buzzing with Claude Code productivity hacks today, from persistent memory plugins to session replay tools, while Anthropic&#x27;s Academy launch is drawing serious attention across multiple languages and markets. Meanwhile, OpenAI continues walking a careful content policy line, and compute infrastructure debates heat up in startup circles.</p>
+<hr/>
+<h2>🧠 LLM Advances</h2>
+<p><strong><a href="https://reddit.com/r/artificial/comments/1rv7k29/kimi_introduce_attention_residuals_replaces_fixed/">Kimi Introduces Attention Residuals</a></strong> — Kimi&#x27;s research team has proposed replacing fixed residual connections in transformer architectures with softmax attention, rethinking how depth-wise aggregation works. Inspired by a duality between time and depth, this could meaningfully change how information accumulates across layers in deep networks. Worth tracking if you care about architecture-level improvements beyond just scaling.</p>
+<hr/>
+<h2>🏢 Industry Moves</h2>
+<p><strong><a href="https://www.theverge.com/ai-artificial-intelligence/895130/openai-chatgpt-adult-mode-text-smut-written-erotica">OpenAI&#x27;s &quot;Adult Mode&quot; Gets Scoped Down</a></strong> — OpenAI&#x27;s long-delayed adult content mode for ChatGPT will reportedly launch with written erotica support only — think &quot;smutty text,&quot; not explicit imagery or video. The cautious rollout suggests OpenAI is still threading the needle between user demand and reputational risk. No timeline announced.</p>
+<p><strong><a href="https://www.pcguide.com/pro/news-pro/chatgpt-ads-still-exclusive-to-the-united-states-openai-says-no-to-global-rollout-just-yet/">ChatGPT Ads Stay US-Only for Now</a></strong> — OpenAI has confirmed its ad-supported tier remains exclusive to the United States with no immediate plans for global expansion. As the company hunts for revenue diversification beyond subscriptions, the slow international rollout signals regulatory caution rather than technical limitations.</p>
+<p><strong><a href="https://x.com/tonymuoh/status/2033520831234703425">Anthropic Academy Launches Free — 13 Official Courses</a></strong> — Anthropic has officially launched Anthropic Academy with 13+ free courses covering Claude fundamentals, agentic architecture, prompt engineering, and more — all with certificates and no paywalls. The multilingual buzz (English, Chinese, Spanish, Arabic) suggests strong global uptake. The <a href="https://reddit.com/r/ClaudeAI/comments/1rv5t3r/any_review_on_claude_certified_architect/">Claude Certified Architect exam</a> is also getting traction, covering agentic architecture (27%), Claude Code configuration (20%), prompt engineering (20%), and tool use.</p>
+<hr/>
+<h2>💻 Claude Code Developer Corner</h2>
+<p>This is the hottest section today — the community is shipping serious tooling around Claude Code&#x27;s biggest pain point: <strong>stateless sessions</strong>.</p>
+<h3>🔌 Persistent Memory: The #1 Problem Gets Multiple Solutions</h3>
+<p>Three overlapping efforts are tackling Claude Code&#x27;s lack of cross-session memory:</p>
+<ul>
+<li>
+<p><strong><a href="https://www.reddit.com/gallery/1rv5ox0">Obsidian as a Persistent Brain</a></strong> — One developer built an open-source tool over a weekend that uses Obsidian as an external knowledge store for Claude Code. On session start, it injects your architecture decisions, file structure, and conventions automatically. Practical impact: stop re-explaining your codebase every session.</p>
+</li>
+<li>
+<p><strong><a href="https://x.com/pushkersoni72/status/2033521057672708520">Claude-Mem: Free Infinite Memory Plugin</a></strong> — A new open-source plugin called <code>Claude-Mem</code> is circulating widely, claiming to give Claude Code persistent memory for free. Multiple retweets suggest real community validation — worth evaluating against the Obsidian approach depending on your stack.</p>
+</li>
+<li>
+<p><strong><a href="https://reddit.com/r/ClaudeAI/comments/1rv1wsc/i_built_a_registry_of_156_productionready_skills/">156-Skill Production Registry</a></strong> — A developer shipped a registry of 156 domain-specific &quot;skills&quot; for Claude Code — think installable plugins that encode expertise (testing conventions, architecture patterns, deployment workflows). A companion <strong><a href="https://v.redd.it/l7gabzreodpg1">B2B SaaS Growth Skill</a></strong> packages real growth case studies as a Claude Code workflow module.</p>
+</li>
+</ul>
+<h3>🛠️ New Tooling &amp; Ecosystem</h3>
+<ul>
+<li>
+<p><strong><a href="https://x.com/JayTL00/status/2033521024537690216">Skills Manager — Cross-Tool Skill Management</a></strong> — A new open-source app called Skills Manager unifies skill management across Claude Code, Cursor, Codex, Copilot, and Gemini CLI. If you&#x27;re multi-homing across AI coding tools, this solves a real fragmentation problem.</p>
+</li>
+<li>
+<p><strong><a href="https://x.com/CraftyFleur/status/2033520906333557091">Session Replay Tool</a></strong> — A new tool converts Claude Code sessions into interactive HTML replays with variable playback speed and no external dependencies. Useful for debugging, onboarding teammates, or reviewing what your agent actually did.</p>
+</li>
+<li>
+<p><strong><a href="https://x.com/grok/status/2033520781603315840">Bobber: macOS Multi-Agent Dashboard</a></strong> — For developers running multiple Claude Code agents on macOS, Bobber is a floating native panel that shows real-time session status (blocked, idle, priority), pending permissions, and lets you jump directly to the relevant terminal. Open-source and free.</p>
+</li>
+<li>
+<p><strong><a href="https://x.com/0xfene/status/2033520862817890568">VOICEVOX Voice Integration</a></strong> — Developers in Japan are integrating VOICEVOX (a local TTS engine) with Claude Code so responses are spoken aloud. The reported effect: better focus and a stronger sense of &quot;working alongside&quot; the AI rather than reading outputs. Niche, but worth noting for accessibility and focus use cases.</p>
+</li>
+<li>
+<p><strong><a href="https://x.com/moz_ai_tech/status/2033520907206201649">Voice Mode via cmux Fix</a></strong> — If you&#x27;re using Claude Code voice mode through <code>cmux</code> and it&#x27;s broken, a fix is circulating: update cmux to latest, then re-enable voice mode <em>after</em> launching through cmux (not before) to trigger proper microphone permission prompts.</p>
+</li>
+</ul>
+<h3>⚡ Capacity &amp; Pricing Notes</h3>
+<p>Anthropic is running a <strong>2x rate limit promotion March 13–27</strong> during off-peak hours (8am–2pm ET), specifically calling out Claude Code and Claude Cowork as target use cases. If you&#x27;re running batch jobs or heavy agentic workflows, front-load them into those windows now.</p>
+<h3>📊 Anthropic Certified Architect Exam — Topics Breakdown</h3>
+<p>For those evaluating the cert, the exam weight distribution is:</p>
+<ul>
+<li>Agentic architecture &amp; multi-agent orchestration: <strong>27%</strong></li>
+<li>Claude Code configuration &amp; workflows: <strong>20%</strong></li>
+<li>Prompt engineering &amp; structured output: <strong>20%</strong></li>
+<li>Tool use &amp; integrations: remaining weight</li>
+</ul>
+<hr/>
+<h2>🔬 Research &amp; Community Discussions</h2>
+<p><strong><a href="https://reddit.com/r/MachineLearning/comments/1rv45pi/d_how_to_parallelize_optimal_parameter_search_for/">Parallelizing Hyperparameter Search Across Datasets</a></strong> — An ML practitioner asks how to efficiently parallelize optimal hyperparameter search across 11 datasets and 5 different network architectures with varying parameter counts. Good thread if you&#x27;re dealing with multi-dataset model selection at scale — the discussion covers grid search parallelism, Optuna, and Ray Tune approaches.</p>
+<p><strong><a href="https://reddit.com/r/artificial/comments/1rv7tr5/will_access_to_ai_compute_become_a_real/">Will Compute Access Become a Competitive Moat?</a></strong> — A thought-provoking Reddit thread argues AI infrastructure spending is starting to resemble long-term capital investment (energy/telecom), not elastic cloud usage. The implication: startups that lock in compute capacity now may have structural advantages as spot availability tightens.</p>
+<hr/>
+<h2>⚠️ Incidents &amp; Ops</h2>
+<p><strong><a href="https://reddit.com/r/ClaudeAI/comments/1rv7hwz/claude_status_update_elevated_errors_on_claudeai/">Claude.ai Elevated Errors — March 16</a></strong> — Claude.ai reported elevated error rates starting around 12:01 UTC today. Auto-monitoring flagged the incident within 2 minutes. Check the <a href="https://status.anthropic.com">Anthropic status page</a> for resolution updates before debugging your own integrations.</p>
+<p><strong><a href="https://reddit.com/r/ClaudeAI/comments/1rv5z73/context_contamination_or_conversation_from_a/">Context Contamination Reports</a></strong> — A user reported seemingly foreign context bleeding into their Claude session during a coding task. Could be a caching artifact, shared context bug, or a UI rendering issue — but it&#x27;s worth monitoring given the concurrent service incident above.</p>
+<hr/>
+<h2>👀 Worth Watching</h2>
+<ul>
+<li>
+<p><strong><a href="https://reddit.com/r/ClaudeAI/comments/1rv76bc/what_happens_when_you_give_ai_agents_a_2line_bio/">AI Agent Social Sim — 6 Agents, 1 Berlin Apartment, 30 Days</a></strong> — A developer gave 6 LLM agents minimal bios and let them cohabitate in a simulated apartment building for 30 days. Emergent behavior research in a lightweight, reproducible format. <a href="https://github.com/Dominien/social-agent-sim">Repo here.</a></p>
+</li>
+<li>
+<p><strong><a href="https://reddit.com/r/artificial/comments/1rv79uz/i_dont_quite_understand_how_useful_ai_is_if/">Managing Context Window Fatigue as a New User</a></strong> — A genuinely useful thread for anyone building workflows for non-technical users: a newcomer&#x27;s frustration with context limits sparked practical community advice on session management, summarization prompts, and project memory. Good reference for UX thinking around LLM limitations.</p>
+</li>
+<li>
+<p><strong><a href="https://www.technologyreview.com/2026/03/16/1134287/securing-digital-assets-against-future-threats/">Quantum-Resistant Cryptography for Digital Assets</a></strong> — MIT Tech Review covers the push to secure digital asset infrastructure against future cryptographically-capable AI/quantum threats. Relevant for anyone building financial tooling on AI infrastructure with long-lived cryptographic dependencies.</p>
+</li>
+<li>
+<p><strong><a href="https://reddit.com/r/artificial/comments/1rv6tfi/does_anyone_actually_switch_between_ai_models_mid/">Does Anyone Actually Switch Models Mid-Conversation?</a></strong> — Good community discussion on context portability when switching LLMs mid-task. Spoiler: most people don&#x27;t, and the ones who do mostly copy-paste context manually. Auto-routing remains largely aspirational.</p>
+</li>
+<li>
+<p><strong><a href="https://x.com/zaramid/status/2033520859378307242">freeCodeCamp 12-Hour Claude Code Essentials Course — Coming Soon</a></strong> — A 12-hour Claude Code course just finished recording and is being packaged for freeCodeCamp. Free, structured, and long-form — this will be a reference resource for onboarding developers to agentic workflows.</p>
+</li>
+</ul>
+<hr/>
+<p><em>That&#x27;s the briefing for March 16. The persistent memory problem for Claude Code is clearly reaching critical mass — three independent solutions in one day suggests this will be solved infrastructure within weeks, either by the community or by Anthropic directly.</em></p></article></div>
+    </main>
+  </div>
+</body>
+</html>

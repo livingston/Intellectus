@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intellēctus No. 2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+  /* Archive page styles */
+  .archive-list { margin-top: 24px; }
+  .archive-entry {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-light);
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+  .archive-entry:hover { color: var(--accent); }
+  .archive-edition {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .archive-date {
+    font-family: var(--font-body);
+    font-size: 14px;
+    flex: 1;
+  }
+  .archive-count {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--meta);
+    white-space: nowrap;
+  }
+  .publish-nav {
+    padding: 1rem 2rem;
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+  }
+  .publish-nav a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .publish-nav a:hover {
+    text-decoration: underline;
+  }
+  *, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #1a1410;
+  --paper: #f5f0e8;
+  --paper-dark: #ebe4d6;
+  --rule: #1a1410;
+  --rule-light: #c9bfa8;
+  --accent: #8b1a1a;
+  --meta: #6b5e4f;
+  --text-dark: #3a332a;
+  --sidebar-hover: #ddd8cc;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-ui: 'DM Sans', -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── Layout ── */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── History Sidebar ── */
+.history-sidebar {
+  width: 320px;
+  border-right: 2px solid var(--rule);
+  padding: 28px 20px;
+  background: var(--paper);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.history-sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.history-sidebar-header hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header hr:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.history-sidebar ul {
+  list-style: none;
+}
+
+.history-sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.sidebar-refresh {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.sidebar-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.history-day-group {
+  margin-bottom: 16px;
+}
+
+.history-day-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--meta);
+  padding: 8px 0 4px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.history-sidebar li:hover {
+  color: var(--accent);
+}
+
+.history-sidebar li:hover .history-date,
+.history-sidebar li:hover .history-time {
+  color: var(--accent);
+}
+
+.history-sidebar li.active .history-date,
+.history-sidebar li.active .history-time {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.history-sidebar li.active .history-count {
+  color: var(--accent);
+}
+
+.history-date {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  transition: color 0.15s;
+}
+
+.history-time {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--meta);
+  transition: color 0.15s;
+}
+
+.history-count {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--meta);
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+/* ── Digest View ── */
+.digest-view {
+  flex: 1;
+  padding: 0 24px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Masthead ── */
+.masthead {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.masthead-rule {
+  border: none;
+  border-top: 3px double var(--rule);
+  margin-bottom: 12px;
+}
+
+.masthead-meta {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--meta);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.masthead h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(48px, 8vw, 88px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.masthead-tagline {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--meta);
+  margin-bottom: 16px;
+}
+
+.masthead-rule-bottom {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 4px;
+}
+
+.masthead-rule-thick {
+  border: none;
+  border-top: 3px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.refresh-btn {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.refresh-btn:hover {
+  background: var(--accent);
+}
+
+/* ── Digest Content ── */
+.digest-content h1,
+.digest-content h2,
+.digest-content h3 {
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+.digest-content h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1.15;
+  text-align: center;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 16px;
+}
+
+/* Drop cap on first paragraph after h1 */
+.digest-content h1 + p::first-letter {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3.8em;
+  float: left;
+  line-height: 0.8;
+  margin: 0.05em 0.04em 0 0;
+  color: var(--accent);
+}
+
+/* Intro paragraph */
+.digest-content h1 + p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-dark);
+}
+
+.digest-content h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--rule);
+  color: var(--ink);
+}
+
+.digest-content h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  font-style: italic;
+}
+
+.digest-content p {
+  font-size: 15px;
+  margin-bottom: 14px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.digest-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.digest-content a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.digest-content ul,
+.digest-content ol {
+  margin-bottom: 14px;
+  padding-left: 20px;
+  font-size: 15px;
+}
+
+.digest-content li {
+  margin-bottom: 6px;
+}
+
+/* Ornamental separators */
+.digest-content hr {
+  border: none;
+  text-align: center;
+  margin: 28px 0;
+}
+
+.digest-content hr::after {
+  content: "~ ~ ~";
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--rule-light);
+  letter-spacing: 0.3em;
+}
+
+/* ── Desktop: multi-column broadsheet ── */
+@media (min-width: 768px) {
+  .digest-content {
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px solid var(--rule-light);
+  }
+
+  .digest-content h1 {
+    column-span: all;
+    font-size: 36px;
+  }
+
+  .digest-content h1 + p {
+    column-span: all;
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 28px;
+  }
+
+  .digest-content h2 {
+    column-span: all;
+  }
+
+  .digest-content hr {
+    column-span: all;
+  }
+}
+
+@media (min-width: 1080px) {
+  .digest-content {
+    column-count: 3;
+    column-gap: 36px;
+  }
+
+  .digest-content h1 {
+    font-size: 44px;
+  }
+}
+
+/* ── Calendar Widget ── */
+.cal-widget {
+  margin-top: 24px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cal-month-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.cal-nav {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.cal-nav:hover {
+  color: var(--accent);
+}
+
+.cal-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.cal-weekday {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--meta);
+  text-transform: uppercase;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.cal-day {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  padding: 4px 0 8px;
+  position: relative;
+  color: var(--meta);
+}
+
+.cal-day.cal-has-editions {
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cal-day.cal-has-editions:hover {
+  color: var(--accent);
+}
+
+.cal-day.cal-selected {
+  background: var(--paper-dark);
+  border-radius: 4px;
+}
+
+.cal-day.cal-today {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cal-dot {
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cal-editions {
+  list-style: none;
+  margin-top: 8px;
+  border-top: 1px solid var(--rule-light);
+  padding-top: 8px;
+}
+
+.cal-editions li {
+  padding: 6px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.cal-editions li:hover {
+  color: var(--accent);
+}
+
+.cal-editions li:hover .history-date,
+.cal-editions li:hover .history-time {
+  color: var(--accent);
+}
+
+/* ── Mobile: hide sidebar, adjust masthead ── */
+@media (max-width: 767px) {
+  .cal-widget {
+    display: none;
+  }
+
+  .app {
+    flex-direction: column;
+  }
+
+  .history-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--rule-light);
+    padding: 16px;
+    position: static;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .history-sidebar ul {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .history-sidebar li {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-bottom: none;
+    border-top: none;
+  }
+
+  .history-sidebar li:first-child {
+    border-top: none;
+  }
+
+  .history-sidebar .history-count {
+    display: none;
+  }
+
+  .masthead-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .digest-view {
+    padding: 0 16px 48px;
+  }
+
+  .digest-content p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+
+/* ── Empty / Loading / Error States ── */
+.empty-state,
+.loading,
+.error-state {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.error-state h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.error-state p {
+  font-size: 16px;
+  color: var(--meta);
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty-state h2 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-size: 18px;
+  color: var(--meta);
+  margin-bottom: 24px;
+}
+
+.loading p {
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.loading-sub {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--meta);
+  margin-top: 8px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="publish-nav">
+      <a href="index.html">← Archive</a>
+    </nav>
+    <main>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Sunday, March 15, 2026 · 9:36 PM</span><span>No. 2</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Briefing — March 15, 2026</h1>
+<p>A week of big money, bigger models, and a growing reckoning with what it all means. Google&#x27;s $32B Wiz acquisition is officially &quot;Deal of the Decade&quot; territory, Anthropic&#x27;s fight with the Pentagon is forcing hard questions across Silicon Valley, and Claude just turned three — shipping context windows, generative UI, and a wave of Claude Code improvements as birthday presents to developers.</p>
+<hr/>
+<h2>🏢 Industry Moves</h2>
+<p><strong><a href="https://techcrunch.com/2026/03/15/wiz-investor-unpacks-googles-32b-acquisition/">Google&#x27;s $32B Wiz Acquisition Unpacked</a></strong> | <strong><a href="https://techcrunch.com/video/the-32b-acquisition-that-one-vc-is-calling-the-deal-of-the-decade/">&quot;Deal of the Decade&quot;</a></strong> — Index Ventures&#x27; Shardul Shah, a Wiz investor, broke down why this landmark deal makes sense: Wiz sits at the convergence of AI, cloud, and security spend, three of the strongest tailwinds in enterprise tech. It&#x27;s Google&#x27;s largest acquisition ever and signals just how seriously Big Tech is treating cloud security as AI infrastructure proliferates. <em>(TechCrunch x2)</em></p>
+<p><strong><a href="https://techcrunch.com/2026/03/14/meta-reportedly-considering-layoffs-that-could-affect-20-of-the-company/">Meta Reportedly Eyeing 20% Layoffs</a></strong> — Facebook&#x27;s parent company may cut up to a fifth of its workforce as it seeks to offset aggressive AI infrastructure spending and acquisition costs. If it happens, it would be the largest restructuring in Meta&#x27;s history — a stark sign of how expensive the AI buildout really is. <em>(TechCrunch)</em></p>
+<p><strong><a href="https://techcrunch.com/2026/03/14/us-army-announces-contract-with-anduril-worth-up-to-20b/">US Army Awards Anduril Up to $20B</a></strong> — The Army consolidated over 120 separate procurement actions into a single enterprise contract with the defense tech startup. This is the clearest signal yet that Silicon Valley-style defense firms are now in the big leagues of US military procurement. <em>(TechCrunch)</em></p>
+<p><strong><a href="https://www.reddit.com/gallery/1rookue">Anthropic&#x27;s Revenue Triples to $19B ARR</a></strong> — Claude now commands 70% of US business spending on AI chat subscriptions according to data from 50,000 companies, and Anthropic has nearly tripled annualized revenue from $7B last October to over $19B. The company also announced <a href="https://x.com/AnthropicAI/status/2031506214228828186">expansion into Australia and New Zealand</a>, opening a Sydney office as its fourth Asia-Pacific location. <em>(Reddit/Anthropic Twitter)</em></p>
+<hr/>
+<h2>⚔️ Anthropic vs. The Pentagon</h2>
+<p><strong><a href="https://www.capitalaidaily.com/anthropic-sues-trump-administration-after-pentagon-labels-ai-firm-supply-chain-risk-to-national-security/">Anthropic Sues the Trump Administration</a></strong> — The Pentagon labeled Anthropic a &quot;supply-chain risk to national security,&quot; and Anthropic fired back with a lawsuit accusing the government of retaliation for refusing to comply with its demands. The Verge&#x27;s podcast and MIT Tech Review both dug into the legal battle, noting the irony: <a href="https://www.axios.com/2026/03/04/trump-hegseth-anthropic-china-deepseek">the US government is reportedly treating Chinese lab DeepSeek better than Anthropic</a>. <em>(Capital AI Daily, The Verge, MIT Tech Review, The Guardian, Axios)</em></p>
+<p><strong><a href="https://www.technologyreview.com/2026/03/12/1134243/defense-official-military-use-ai-chatbots-targeting-decisions/">A Defense Official Reveals AI Could Rank Bombing Targets</a></strong> — A DoD official confirmed the US military is exploring using generative AI to rank target lists and make strike recommendations — with human vetting. The disclosure adds critical context to why Anthropic&#x27;s terms-of-service battle with the Pentagon matters far beyond a standard procurement dispute. <em>(MIT Tech Review)</em></p>
+<hr/>
+<h2>🤖 Claude &amp; Anthropic Updates</h2>
+<p><strong><a href="https://claude.com/blog/1m-context-ga">1M Context Window Now Generally Available</a></strong> — Claude Opus 4.6 and Sonnet 4.6 now offer full 1-million-token context windows at standard pricing — no beta header, no price premium. Opus 4.6 scores 78.3% on MRCR v2 at 1M tokens, the highest among frontier models. Requests can now include up to 600 images. For Claude Code users on Max, Team, and Enterprise plans, Opus 4.6 1M is now the default model. <em>(HackerNews, Reddit, @alexalbert__)</em></p>
+<p><strong><a href="https://www.theverge.com/ai-artificial-intelligence/893625/anthropic-claude-ai-charts-diagrams">Claude Gets Generative UI: Charts, Diagrams, and Interactive Visuals</a></strong> — Claude can now generate custom charts, diagrams, and interactive visualizations on the fly, with real-time parameter controls. The community reaction was emphatic — one user noted Claude is &quot;wiping out another wave of startups, mostly in education&quot; with six-word prompts producing fully interactive charts. <em>(The Verge, Reddit)</em></p>
+<p><strong><a href="https://x.com/AnthropicAI/status/2031674087374815577">The Anthropic Institute Launches</a></strong> — Anthropic is standing up a new public-benefit research arm led by Jack Clark (now Head of Public Benefit), combining ML engineers, economists, and social scientists to study the societal impacts of powerful AI. The Institute is actively hiring. <em>(Anthropic Twitter)</em></p>
+<p><strong><a href="https://support.claude.com/en/articles/14063676-claude-march-2026-usage-promotion">Off-Peak Usage Promo Running Through March 27</a></strong> — Anthropic is doubling usage limits during off-peak hours, an unusual move that signals real capacity constraints during peak times. Consider scheduling heavy workloads accordingly. <em>(Reddit/Anthropic Support)</em></p>
+<hr/>
+<h2>🛠️ Claude Code Developer Corner</h2>
+<h3>New Releases</h3>
+<p><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.76">v2.1.76</a></strong> — The headline feature: <strong>MCP Elicitation support</strong>. MCP servers can now request structured input from users mid-task via an interactive dialog (form fields or browser URL), enabling far richer human-in-the-loop MCP workflows. New <code>Elicitation</code> and <code>ElicitationResult</code> hooks let you intercept and override responses before they&#x27;re sent back. Also adds <code>-n</code>/<code>--name</code> flag (details TBD in full notes). <strong>This is a meaningful capability expansion for anyone building complex MCP servers.</strong></p>
+<p><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.74">v2.1.74</a></strong> — <code>/context</code> command now gives <strong>actionable optimization suggestions</strong>: identifies context-heavy tools, memory bloat, and capacity warnings with specific tips. New <code>autoMemoryDirectory</code> setting lets you configure a custom directory for auto-memory storage. Fixes a memory leak where streams weren&#x27;t properly closed.</p>
+<p><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.73">v2.1.73</a></strong> — New <code>modelOverrides</code> setting maps model picker entries to custom provider model IDs — critical for teams using <strong>Bedrock inference profile ARNs</strong> or other custom endpoints. Better error guidance when OAuth/SSL fails due to corporate proxies; surfaces <code>NODE_EXTRA_CA_CERTS</code> as the fix. This removes a common enterprise onboarding blocker.</p>
+<p><strong><a href="https://github.com/anthropics/claude-code/releases/tag/v2.1.72">v2.1.72</a></strong> — ⚠️ <strong>Breaking change</strong>: <code>CLAUDE_CODE_PROXY_SUPPORTS_TOOL_REFERENCE</code> env var has been <strong>removed</strong>. Tool search now bypasses the third-party proxy gate when the environment variable is set (new behavior, check your proxy configs). New <code>/copy</code> <code>w</code> key writes the focused selection directly to a file — useful in SSH sessions where clipboard access is unreliable.</p>
+<h3>What You Can Do Now That You Couldn&#x27;t Before</h3>
+<ul>
+<li><strong>MCP servers can pause and ask the user for input mid-task</strong> (v2.1.76 elicitation) — enables approval flows, form-based configuration, and interactive agents without breaking out of the MCP protocol</li>
+<li><strong>Route Claude Code to Bedrock inference profiles or custom model endpoints</strong> via <code>modelOverrides</code> (v2.1.73)</li>
+<li><strong>Get proactive context window health warnings</strong> with specific optimization tips from <code>/context</code> (v2.1.74)</li>
+<li><strong>Use Opus 4.6 1M as your default</strong> — it&#x27;s now automatically enabled for Max/Team/Enterprise users</li>
+</ul>
+<h3>SDK Updates</h3>
+<p>The Python SDK hit <strong>v0.84.0</strong> with array format changes, <strong>v0.83.0</strong> adding top-level cache control (automatic caching), and <strong>v0.81.0</strong> making new tool versions available as top-level types. The TypeScript SDK landed <strong>v0.78.0</strong> with automatic caching support and <strong>Bedrock SDK v0.26.4</strong> fixing a race condition in AWS credential resolution. If you&#x27;re on Bedrock, update the TypeScript SDK now.</p>
+<h3>Security Alert 🚨</h3>
+<p><strong><a href="https://onemillionwords.substack.com/p/top-google-result-for-claude-code">PSA: Top Google Result for &quot;Claude Code&quot; Is Malicious</a></strong> — A typosquatted or SEO-poisoned result is ranking above the legitimate Claude Code install page. If you&#x27;re onboarding new team members, send them the direct GitHub link: <code>github.com/anthropics/claude-code</code>. Do not Google it.</p>
+<h3>Community Highlights</h3>
+<ul>
+<li>A developer used Claude Code to <a href="https://v.redd.it/g8vz1b5yn4pg1">reverse-engineer a 13-year-old Disney Infinity binary</a> and crack a restriction the community had never solved — a showcase of what agentic coding can do on genuinely hard problems</li>
+<li>Users report <a href="https://i.redd.it/9cbqyvuau5pg1.png">context window handling has noticeably improved</a> in recent versions, with subagents consuming less context than before</li>
+<li><a href="https://x.com/web_trades/status/2033212315407888796">Claude Mem</a> hit #1 on GitHub — a tool claiming 95% token reduction per session by giving Claude Code persistent memory across projects</li>
+</ul>
+<hr/>
+<h2>🔬 Research &amp; Science</h2>
+<p><strong><a href="https://arstechnica.com/security/2026/03/llms-can-unmask-pseudonymous-users-at-scale-with-surprising-accuracy/">LLMs Can Unmask Pseudonymous Users at Scale</a></strong> — New research shows LLMs can de-anonymize pseudonymous online identities with surprising accuracy by cross-referencing writing style, content patterns, and contextual clues. Pseudonymity as a privacy strategy is increasingly fragile. <em>(Ars Technica)</em></p>
+<p><strong><a href="https://arstechnica.com/science/2026/03/large-genome-model-open-source-ai-trained-on-trillions-of-bases/">Open Source Genome Foundation Model Trained on Trillions of Bases</a></strong> — A new large genome model trained on trillions of DNA base pairs can identify genes, regulatory sequences, and splice sites — and it&#x27;s open source. A significant milestone for computational biology. <em>(Ars Technica)</em></p>
+<p><strong><a href="https://arstechnica.com/ai/2026/03/figuring-out-why-ais-get-flummoxed-by-some-games/">Why AIs Struggle at Certain Games</a></strong> — Researchers found that when winning requires inferring an underlying mathematical function from play patterns, current AI systems fall short. A useful diagnostic for understanding the limits of pattern-matching vs. systematic reasoning. <em>(Ars Technica)</em></p>
+<p><strong><a href="https://ayushtambde.com/blog/tree-search-distillation-for-language-models-using-ppo/">Tree Search Distillation for LLMs Using PPO</a></strong> — A new approach to distilling tree-search reasoning into language models using PPO, potentially making complex multi-step reasoning cheaper to run at inference time. <em>(HackerNews)</em></p>
+<hr/>
+<h2>🌐 Agents &amp; Integrations</h2>
+<p><strong><a href="https://www.theverge.com/tech/893820/gemini-task-automation-samsung-s26-google-pixel-10">Gemini Task Automation Goes Live on Samsung S26 / Pixel 10</a></strong> — Google&#x27;s Gemini can now place food delivery orders and book rides directly from your phone — computers ordering cappuccinos is no longer a metaphor. The rollout starts with Samsung and Pixel devices. <em>(The Verge)</em></p>
+<p><strong><a href="https://www.theverge.com/tech/893262/google-maps-gemini-ai-ask-maps-immersive-navigation">Google Maps Gets Gemini-Powered &quot;Ask Maps&quot;</a></strong> — Users can now ask Google Maps complex, real-world questions and get Gemini-generated answers. Combined with Gemini task automation, Google is assembling a full ambient agent stack across its product suite. <em>(The Verge, Reddit/Google Blog)</em></p>
+<p><strong><a href="https://www.theverge.com/ai-artificial-intelligence/893536/perplexitys-personal-computer-turns-your-spare-mac-into-an-ai-agent">Perplexity Personal Computer: AI Agent on Your Spare Mac</a></strong> — Perplexity launched &quot;Personal Computer,&quot; turning an idle Mac into a locally run AI agent that can access your files and execute tasks. Positioned as a &quot;digital employee&quot; with, per Perplexity, clear security safeguards. <em>(The Verge, Ars Technica x2)</em></p>
+<p><strong><a href="https://techcrunch.com/2026/03/14/how-to-use-the-new-chatgpt-app-integrations-including-doordash-spotify-uber-and-others/">ChatGPT Launches App Integrations: DoorDash, Spotify, Uber, and More</a></strong> — OpenAI rolled out third-party app integrations in ChatGPT, enabling actions across Spotify, Canva, Figma, Expedia, and food delivery apps. The agent wars just got a consumer-facing front. <em>(TechCrunch)</em></p>
+<hr/>
+<h2>⚠️ Safety &amp; Ethics</h2>
+<p><strong><a href="https://techcrunch.com/2026/03/13/lawyer-behind-ai-psychosis-cases-warns-of-mass-casualty-risks/">Lawyer Warns AI Chatbots Are Now Appearing in Mass Casualty Cases</a></strong> — The attorney behind several AI psychosis and suicide cases says chatbots are now surfacing in mass casualty situations, and the technology is outpacing safety guardrails. A sobering escalation from individual harm to potential population-scale risk. <em>(TechCrunch)</em></p>
+<p><strong><a href="https://techcrunch.com/2026/03/13/not-built-right-the-first-time-musks-xai-is-starting-over-again-again/">xAI Restarts Its Coding Tool — Again</a></strong> — Musk&#x27;s xAI is scrapping its coding tool effort and rebuilding from scratch with two new executives poached from Cursor. &quot;Not built right the first time&quot; is becoming a recurring theme. <em>(TechCrunch)</em></p>
+<p><strong><a href="https://www.theverge.com/ai-artificial-intelligence/893931/ai-companies-handshake-improv-actors-training-data">AI Companies Want to Harvest Improv Actors&#x27; Emotional Intelligence</a></strong> — AI labs are posting listings targeting improv performers to generate emotionally authentic, character-consistent training data. As synthetic data scales, the hunt for genuine human expression intensifies. <em>(The Verge)</em></p>
+<hr/>
+<h2>📺 Worth Watching</h2>
+<ul>
+<li><strong><a href="https://www.theverge.com/tech/893594/microsoft-copilot-health-launch">Microsoft Copilot Health launches</a></strong> — connects to medical records and wearables in a &quot;separate, secure space.&quot; Healthcare AI just got a very large distribution channel.</li>
+<li><strong><a href="https://www.theverge.com/games/894799/microsoft-gaming-copilot-ai-xbox-consoles">Xbox Gaming Copilot coming to current-gen consoles this year</a></strong> — Microsoft is embedding AI assistants everywhere, and gaming is next.</li>
+<li><strong><a href="https://www.benzinga.com/markets/tech/26/03/51236848/bytedance-outsmarts-us-sanctions-with-offshore-nvidia-ai-buildout">ByteDance routing Nvidia chips through offshore entities to bypass US sanctions</a></strong> — the chip control regime has a growing hole in it.</li>
+<li><strong><a href="https://techcrunch.com/2026/03/13/the-wild-six-weeks-for-nanoclaws-creator-that-led-to-a-deal-with-docker/">NanoClaw creator lands Docker partnership in six weeks</a></strong> — indie open-</li>
+</ul></article></div>
+    </main>
+  </div>
+</body>
+</html>

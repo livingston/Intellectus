@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intellēctus No. 14</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+  /* Archive page styles */
+  .archive-list { margin-top: 24px; }
+  .archive-entry {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule-light);
+    text-decoration: none;
+    color: var(--ink);
+    transition: color 0.15s;
+  }
+  .archive-entry:hover { color: var(--accent); }
+  .archive-edition {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  .archive-date {
+    font-family: var(--font-body);
+    font-size: 14px;
+    flex: 1;
+  }
+  .archive-count {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--meta);
+    white-space: nowrap;
+  }
+  .publish-nav {
+    padding: 1rem 2rem;
+    font-family: var(--font-ui);
+    font-size: 0.875rem;
+  }
+  .publish-nav a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .publish-nav a:hover {
+    text-decoration: underline;
+  }
+  *, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #1a1410;
+  --paper: #f5f0e8;
+  --paper-dark: #ebe4d6;
+  --rule: #1a1410;
+  --rule-light: #c9bfa8;
+  --accent: #8b1a1a;
+  --meta: #6b5e4f;
+  --text-dark: #3a332a;
+  --sidebar-hover: #ddd8cc;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+  --font-ui: 'DM Sans', -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grain overlay */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── Layout ── */
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── History Sidebar ── */
+.history-sidebar {
+  width: 320px;
+  border-right: 2px solid var(--rule);
+  padding: 28px 20px;
+  background: var(--paper);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.history-sidebar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.history-sidebar-header hr {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header h3 {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.history-sidebar-header hr:last-child {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.history-sidebar ul {
+  list-style: none;
+}
+
+.history-sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.sidebar-refresh {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.sidebar-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.history-day-group {
+  margin-bottom: 16px;
+}
+
+.history-day-label {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--meta);
+  padding: 8px 0 4px;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.history-sidebar li:hover {
+  color: var(--accent);
+}
+
+.history-sidebar li:hover .history-date,
+.history-sidebar li:hover .history-time {
+  color: var(--accent);
+}
+
+.history-sidebar li.active .history-date,
+.history-sidebar li.active .history-time {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.history-sidebar li.active .history-count {
+  color: var(--accent);
+}
+
+.history-date {
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  transition: color 0.15s;
+}
+
+.history-time {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--meta);
+  transition: color 0.15s;
+}
+
+.history-count {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--meta);
+  white-space: nowrap;
+  transition: color 0.15s;
+}
+
+/* ── Digest View ── */
+.digest-view {
+  flex: 1;
+  padding: 0 24px 80px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ── Masthead ── */
+.masthead {
+  text-align: center;
+  padding-top: 40px;
+}
+
+.masthead-rule {
+  border: none;
+  border-top: 3px double var(--rule);
+  margin-bottom: 12px;
+}
+
+.masthead-meta {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--meta);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.masthead h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(48px, 8vw, 88px);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.masthead-tagline {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--meta);
+  margin-bottom: 16px;
+}
+
+.masthead-rule-bottom {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin-bottom: 4px;
+}
+
+.masthead-rule-thick {
+  border: none;
+  border-top: 3px solid var(--rule);
+  margin-bottom: 0;
+}
+
+.refresh-btn {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.refresh-btn:hover {
+  background: var(--accent);
+}
+
+/* ── Digest Content ── */
+.digest-content h1,
+.digest-content h2,
+.digest-content h3 {
+  margin-top: 28px;
+  margin-bottom: 10px;
+}
+
+.digest-content h1 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1.15;
+  text-align: center;
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 16px;
+}
+
+/* Drop cap on first paragraph after h1 */
+.digest-content h1 + p::first-letter {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3.8em;
+  float: left;
+  line-height: 0.8;
+  margin: 0.05em 0.04em 0 0;
+  color: var(--accent);
+}
+
+/* Intro paragraph */
+.digest-content h1 + p {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--text-dark);
+}
+
+.digest-content h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--rule);
+  color: var(--ink);
+}
+
+.digest-content h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  font-style: italic;
+}
+
+.digest-content p {
+  font-size: 15px;
+  margin-bottom: 14px;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.digest-content a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+
+.digest-content a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.digest-content ul,
+.digest-content ol {
+  margin-bottom: 14px;
+  padding-left: 20px;
+  font-size: 15px;
+}
+
+.digest-content li {
+  margin-bottom: 6px;
+}
+
+/* Ornamental separators */
+.digest-content hr {
+  border: none;
+  text-align: center;
+  margin: 28px 0;
+}
+
+.digest-content hr::after {
+  content: "~ ~ ~";
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--rule-light);
+  letter-spacing: 0.3em;
+}
+
+/* ── Desktop: multi-column broadsheet ── */
+@media (min-width: 768px) {
+  .digest-content {
+    column-count: 2;
+    column-gap: 40px;
+    column-rule: 1px solid var(--rule-light);
+  }
+
+  .digest-content h1 {
+    column-span: all;
+    font-size: 36px;
+  }
+
+  .digest-content h1 + p {
+    column-span: all;
+    text-align: center;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 28px;
+  }
+
+  .digest-content h2 {
+    column-span: all;
+  }
+
+  .digest-content hr {
+    column-span: all;
+  }
+}
+
+@media (min-width: 1080px) {
+  .digest-content {
+    column-count: 3;
+    column-gap: 36px;
+  }
+
+  .digest-content h1 {
+    font-size: 44px;
+  }
+}
+
+/* ── Calendar Widget ── */
+.cal-widget {
+  margin-top: 24px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cal-month-label {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.cal-nav {
+  background: none;
+  border: none;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--ink);
+  padding: 4px 8px;
+  transition: color 0.15s;
+}
+
+.cal-nav:hover {
+  color: var(--accent);
+}
+
+.cal-nav:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.cal-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.cal-weekday {
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--meta);
+  text-transform: uppercase;
+}
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.cal-day {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  padding: 4px 0 8px;
+  position: relative;
+  color: var(--meta);
+}
+
+.cal-day.cal-has-editions {
+  color: var(--ink);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.cal-day.cal-has-editions:hover {
+  color: var(--accent);
+}
+
+.cal-day.cal-selected {
+  background: var(--paper-dark);
+  border-radius: 4px;
+}
+
+.cal-day.cal-today {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cal-dot {
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.cal-editions {
+  list-style: none;
+  margin-top: 8px;
+  border-top: 1px solid var(--rule-light);
+  padding-top: 8px;
+}
+
+.cal-editions li {
+  padding: 6px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.cal-editions li:hover {
+  color: var(--accent);
+}
+
+.cal-editions li:hover .history-date,
+.cal-editions li:hover .history-time {
+  color: var(--accent);
+}
+
+/* ── Mobile: hide sidebar, adjust masthead ── */
+@media (max-width: 767px) {
+  .cal-widget {
+    display: none;
+  }
+
+  .app {
+    flex-direction: column;
+  }
+
+  .history-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--rule-light);
+    padding: 16px;
+    position: static;
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .history-sidebar ul {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .history-sidebar li {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-bottom: none;
+    border-top: none;
+  }
+
+  .history-sidebar li:first-child {
+    border-top: none;
+  }
+
+  .history-sidebar .history-count {
+    display: none;
+  }
+
+  .masthead-meta {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .digest-view {
+    padding: 0 16px 48px;
+  }
+
+  .digest-content p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+
+/* ── Empty / Loading / Error States ── */
+.empty-state,
+.loading,
+.error-state {
+  text-align: center;
+  padding: 120px 24px;
+}
+
+.error-state h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+
+.error-state p {
+  font-size: 16px;
+  color: var(--meta);
+  margin-bottom: 24px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.empty-state h2 {
+  font-family: var(--font-display);
+  font-size: 36px;
+  margin-bottom: 12px;
+}
+
+.empty-state p {
+  font-size: 18px;
+  color: var(--meta);
+  margin-bottom: 24px;
+}
+
+.loading p {
+  font-family: var(--font-display);
+  font-size: 20px;
+}
+
+.loading-sub {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--meta);
+  margin-top: 8px;
+}
+
+  </style>
+</head>
+<body>
+  <div class="app">
+    <nav class="publish-nav">
+      <a href="index.html">← Archive</a>
+    </nav>
+    <main>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Tuesday, March 17, 2026 · 5:26 AM</span><span>No. 14</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 17, 2026</h1>
+<p>Today&#x27;s feed is dominated by Claude Code&#x27;s expanding real-world impact — from Pentagon budget audits to App Store submissions to reverse-engineering decade-old game DRM. Meanwhile, agentic AI workflows and the question of who wins the coding assistant wars are heating up across every timezone and language.</p>
+<hr/>
+<h2>🧠 Claude in the Wild</h2>
+<p>Claude Opus 4.6 made headlines in the retro gaming community after someone used it to <a href="https://x.com/MuyaoZhang/status/2033693651503661157">reverse-engineer Disney Infinity (2013)</a>, cracking a 13-year-old character-locking restriction in under 24 hours — characters previously confined to their own game worlds can now roam freely across any level. Separately, a viral thread shows someone <a href="https://x.com/Dominguez13Ivan/status/2033693569308066088">pointing Claude Code at the Pentagon&#x27;s public budget data</a> and asking it to surface contracts overpaying by 10x — 340 contracts flagged, totaling $4.2B in potential overspend. Both stories underscore a consistent theme: Claude as an investigative power tool, not just a code completer.</p>
+<hr/>
+<h2>⚔️ Agentic Coding Wars: Claude Code vs. The Field</h2>
+<p>OpenAI&#x27;s Codex is <a href="https://x.com/SecrtAgntSquirl/status/2033693431759786036">reportedly at 2M+ weekly active users, up ~300% since January</a>, with estimates suggesting 3–4M unique users total. The same analyst notes that &quot;multiple billions of accounts&quot; will eventually use AI coding tools — framing today&#x27;s growth as early innings. Meanwhile, a comparison piece notes <a href="https://x.com/dadhgik/status/2033693256866009242">Codex&#x27;s newly launched Subagents feature</a> alongside Claude Code, highlighting meaningfully different design philosophies between the two — worth a read for anyone architecting multi-agent systems. Amp Code&#x27;s <code>find thread</code> is also getting traction as a context-tree navigation feature <a href="https://x.com/RezMah/status/2033693200062550178">that Claude Code currently lacks</a>.</p>
+<hr/>
+<h2>🤖 Agent Swarms &amp; Multi-Agent Architecture</h2>
+<p>The emerging consensus on agentic AI is crystallizing: <a href="https://x.com/diyprojectparts/status/2033693114238722329">the future isn&#x27;t one giant generalist agent</a>, it&#x27;s swarms of specialized agents orchestrated by a high-level coordinator. A GitHub project called <code>agency-agents</code> is gaining traction as a <a href="https://x.com/GitTrend0x/status/2033693115568296317">ready-made AI employee team template library</a> — not a framework or model, but a set of agent role definitions (prompts + rules) designed to slot directly into Claude Code, Cursor, or Copilot. The framing: turn your AI assistant into an AI company.</p>
+<hr/>
+<h2>🎓 Certification &amp; Education</h2>
+<p>Anthropic has <a href="https://x.com/ChenJia13893/status/2033693274914124043">quietly launched a free Claude Certified Architect exam</a>, covering: Agentic Architecture &amp; Multi-Agent Orchestration (27%), Claude Code Configuration &amp; Workflows (20%), Prompt Engineering &amp; Structured Output (20%), and Tool Use. This is notable — a vendor-backed certification for Claude-native architecture is a signal that enterprise adoption is maturing fast. A separate <a href="https://x.com/BetoUrquizaa/status/2033693501079052500">1-hour beginner tutorial for Claude Code in Spanish</a> is circulating widely, aimed at non-programmers, reflecting the tool&#x27;s broadening audience.</p>
+<hr/>
+<h2>🛠️ Claude Code Developer Corner</h2>
+<p><strong>What developers are actually building:</strong></p>
+<ul>
+<li>
+<p><a href="https://x.com/minjunesh/status/2033693633267032418">@minjunesh recorded a demo</a> of Claude Code autonomously filling out all required App Store Connect forms for an app called ParkSafe — boring-but-critical submission paperwork, fully automated. This is a practical unlock for solo devs shipping iOS apps.</p>
+</li>
+<li>
+<p>A <a href="http://alicesrabbithole.ca">rabbit hole exploration tool</a> was built and shipped entirely with Claude Code — it processes a user&#x27;s query, then draws connections to related information iteratively. Free to try, and a clean example of Claude Code as a full product-build environment.</p>
+</li>
+<li>
+<p>Japanese developer <a href="https://x.com/motoseko/status/2033693491898028318">@masahirochaen</a> describes queuing up &quot;an insane amount of tasks&quot; before bed — market research, requirements definition, mock creation, code review — and waking up to completed work. Their estimate: what would take 25 person-months of human effort.</p>
+</li>
+</ul>
+<p><strong>Performance tip making rounds:</strong></p>
+<p>A <a href="https://x.com/Krongggggg/status/2033693519433671013">Korean-language tip</a> is circulating about a 3x+ speed improvement when using Claude Code with local models — apparently involves disabling billing-related header processing. The note that &quot;Twitter tips are faster and more accurate than official docs&quot; on this one is a bit of a warning sign; treat with caution and verify before production use.</p>
+<p><strong>Ecosystem tooling:</strong></p>
+<ul>
+<li>The <code>opencli</code> tool is being adapted as a <a href="https://x.com/LbPromin/status/2033693170639507927">Claude Code skill for browsing trending posts on any website</a> — a lightweight MCP-style extension pattern worth bookmarking.</li>
+<li><code>agency-agents</code> (mentioned above) is directly compatible with Claude Code&#x27;s agent role system.</li>
+<li>Anthropic&#x27;s <a href="https://x.com/ChenJia13893/status/2033693274914124043">free Certified Architect exam</a> covers Claude Code configuration as 20% of its content — a useful study guide even if you don&#x27;t sit the exam.</li>
+</ul>
+<p><strong>Community humor that contains a real point:</strong></p>
+<blockquote>
+<p><em>&quot;Stop spending money on Claude Code. Chipotle&#x27;s support bot is free.&quot;</em></p>
+</blockquote>
+<p>The joke is getting ratio&#x27;d for a reason — Claude Code&#x27;s $20–200/month cost remains a friction point, and alternatives (Codex, Amp, local model setups) are all gunning for the same user.</p>
+<hr/>
+<h2>👀 Worth Watching</h2>
+<ul>
+<li><strong>Riley Brown&#x27;s free masterclass</strong> on building a full app from zero to deployment is making rounds in Arabic-speaking AI communities — <a href="https://x.com/MonaSFT/status/2033693621992480849">signals growing global appetite</a> for structured Claude/AI app-building education.</li>
+<li>A Taiwanese developer argues <a href="https://x.com/MaxCryptoSpace/status/2033693150343246272">everyone should train their own personal agent</a> — starting with a simple news-collection loop with feedback, growing into a personalized AI that learns your preferences over time. Low barrier to entry, high long-term leverage.</li>
+<li>A Qiita post titled <strong>&quot;Catch up in 15 minutes: What Claude Code can do right now&quot;</strong> hit <a href="https://x.com/mm7967083379084/status/2033693124044984354">800 likes on the Japanese dev platform</a> — a signal of where Claude Code mindshare is especially strong.</li>
+<li>One analyst&#x27;s take: <a href="https://x.com/MuRR9891/status/2033693223533605078">Claude Code will make 50,000 people millionaires</a> — not through magic, but because most developers won&#x27;t learn to leverage it, creating asymmetric advantage for those who do. Bullish framing, but the underlying point about skill distribution is worth sitting with.</li>
+</ul></article></div>
+    </main>
+  </div>
+</body>
+</html>
