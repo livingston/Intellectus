@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intellēctus No. 41</title>
+  <title>Intellēctus No. 42</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -682,96 +682,36 @@ body::after {
       <a href="archive.html">← Archive</a>
     </nav>
     <main style="flex:1">
-<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Friday, March 20, 2026 · 12:44 PM</span><span>No. 41</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 20, 2026</h1>
-<p>The pace of Anthropic shipping is starting to feel like a different kind of company. This week alone: Claude Code got Telegram and Discord channels, Cowork Dispatch landed for all Pro users, Opus 4.6 hit 1M context as the default for Max/Teams/Enterprise, and Code Review went to beta — all while the DoW saga continues to loom in the background. Here&#x27;s what you need to know.</p>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Friday, March 20, 2026 · 1:00 PM</span><span>No. 42</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 20, 2026</h1>
+<p>Today&#x27;s signal is heavy on Claude Code community momentum: messaging integrations, cost-reduction adapters, and creative workflow hacks are dominating developer conversation — even amid a brief API wobble that caught users off guard.</p>
 <hr/>
-<h2>Anthropic × Department of War: The Ongoing Saga</h2>
-<p>Anthropic has been navigating a tense and public standoff with the U.S. Department of War (formerly Defense). <a href="https://x.com/AnthropicAI/status/2027555481699446918">@AnthropicAI</a> issued a statement responding to Secretary of War Pete Hegseth&#x27;s comments, and CEO Dario Amodei published <a href="https://x.com/AnthropicAI/status/2027150818575528261">his own statement</a> on the DoW discussions. An Anthropic employee was direct: &quot;No amount of intimidation or punishment from the Department of War will change our position on mass domestic surveillance or fully autonomous weapons. We will challenge any supply chain risk designation in court.&quot; The episode — combined with viral moments from Trump to Katy Perry posting about Claude — reportedly broke sign-up records and briefly pushed Claude to #1 on the App Store.</p>
-<hr/>
-<h2>Model News</h2>
-<p><strong>1M Context Goes GA, Opus 4.6 Leads the Pack</strong></p>
-<p>The <a href="https://x.com/claudeai/status/2032509548297343196">@claudeai</a> team announced that the 1 million token context window is now generally available for both Claude Opus 4.6 and Claude Sonnet 4.6. Opus 4.6 scores 78.3% on MRCR v2 at 1M tokens — highest among frontier models — and now supports up to 600 images or PDF pages per request. Opus 4.6 1M is the new default model for Max, Teams, and Enterprise users on both claude.ai and Claude Code; Pro and Sonnet users can opt in via <code>/extra-usage</code>.</p>
-<p><strong>Claude Sonnet 4.6 Ships</strong></p>
-<p><a href="https://x.com/alexalbert__/status/2023817479580221795">Sonnet 4.6 launched</a> as the most capable Sonnet model yet, described as &quot;approaching Opus-class capabilities in many areas.&quot; A notable engineering detail: Claude&#x27;s web search and fetch tools now write and execute code to filter results before they hit the context window, yielding <a href="https://x.com/alexalbert__/status/2023834863858769975">13% higher accuracy on BrowseComp with 32% fewer input tokens</a>. Code execution, web fetch, memory, programmatic tool calling, and tool search are all now generally available.</p>
-<p><strong>Responsible Scaling Policy v3.0</strong></p>
-<p>Anthropic <a href="https://x.com/AnthropicAI/status/2026393794036351461">published RSP v3.0</a>, separating unilateral safety commitments from industry-wide recommendations. New commitments include publishing Frontier Safety Roadmaps with detailed safety goals and Risk Reports that quantify risk across all deployed models. METR evaluated Claude Opus 4.6 with a 50%-time-horizon of ~14.5 hours on software tasks.</p>
-<p><strong>Opus 3 Retirement — With a Twist</strong></p>
-<p>Rather than simply deprecating Claude Opus 3, Anthropic is <a href="https://x.com/AnthropicAI/status/2026765821276729499">keeping it available to all paid subscribers</a> and letting it write on Substack for at least three months. Anthropic framed this as an experiment in documenting model preferences and acting on them — a genuinely unusual move in the industry.</p>
-<hr/>
-<h2>Claude.ai Product Updates</h2>
-<p><strong>Interactive Charts, Office Suite Integration, More</strong></p>
-<p>Claude can now <a href="https://x.com/claudeai/status/2032124273587077133">build interactive charts and diagrams directly in chat</a>, available in beta on all plans including free. Claude for Excel and Claude for PowerPoint <a href="https://x.com/claudeai/status/2031790754637717772">now share context</a> seamlessly across open files, support Skills, and are available on Amazon Bedrock, Google Cloud Vertex AI, and Microsoft Foundry. Claude also <a href="https://x.com/bcherny/status/2032673147841900625">no longer defaults to text</a> — it now chooses the best medium for each response.</p>
-<p><strong>Memory, Connectors, and Rate Limits</strong></p>
-<p>Memory is <a href="https://x.com/claudeai/status/2028559427167834314">now available on the free plan</a> with an import/export button. 150+ Connectors (including Google Workspace) are also free-plan eligible. As a thank-you to users during rapid growth, <a href="https://x.com/claudeai/status/2032911276226257206">Anthropic doubled usage limits</a> outside peak hours (5–11am PT weekdays, all weekend) for two weeks — applying to Claude Code users too.</p>
-<p><strong>Claude Marketplace Launches in Preview</strong></p>
-<p>The <a href="https://x.com/claudeai/status/2029966517497122886">Claude Marketplace</a> lets enterprises apply existing Anthropic spend commitments toward Claude-powered solutions from GitLab, Harvey, Lovable, Replit, Rago AI, and Snowflake. It&#x27;s now in limited preview.</p>
-<hr/>
-<h2>Industry &amp; Research</h2>
-<p><strong>AI Skill Atrophy: The Reviewer&#x27;s Dilemma</strong></p>
-<p>A <a href="https://reddit.com/r/ClaudeAI/comments/1ryk7yb/if_ai_does_all_the_work_and_you_only_review_it/">Reddit thread</a> surfaced a pointed question circulating among developers: if AI does all the coding and you only review it, where does the judgment to review well come from? Developer evaluations show those who fully delegated to AI finished fastest but scored worst — a tension with no clean answer as agentic coding matures.</p>
-<p><strong>Claude Code Adoption at Scale</strong></p>
-<p><a href="https://x.com/_catwu/status/2028603856163426522">@_catwu</a> published a roundup of enterprise Claude Code outcomes: Ramp cut incident investigation by 80% and shipped 1M+ LOC in 30 days; Rakuten reduced time-to-market 79% (24 days → 5); Brex saw 3–4x productivity gains with non-technical teams writing code; Wiz migrated a 50,000-line codebase in one day vs. an estimated 2–3 months; Shopify went org-wide with engineers and non-engineers building apps in minutes; Spotify&#x27;s best engineers are now supervising Claude Code rather than writing manually. Separately, an earlier stat: 4% of GitHub public commits are currently being authored by Claude Code.</p>
-<p><strong>Anthropic Acquires Vercept</strong></p>
-<p><a href="https://x.com/AnthropicAI/status/2026705792033026465">Anthropic acquired Vercept</a> to advance Claude&#x27;s computer use capabilities, a signal that near-human-level computer use is a near-term product priority.</p>
+<h2>Service Disruptions</h2>
+<p><strong><a href="https://x.com/jinlaini666/status/2034894786927509815">Anthropic API 500 errors spotted in the wild</a></strong> — Users reported hitting <code>500 api_error / 520</code> responses from the Anthropic API earlier today, with at least one Chinese-language developer asking whether Claude Code had gone down entirely. The errors appear to have been transient; no official incident report has been published at time of writing. If you hit these in production, check <code>status.anthropic.com</code> and implement exponential backoff.</p>
 <hr/>
 <h2>Claude Code Developer Corner</h2>
-<p>This has been one of the heaviest Claude Code shipping periods on record. Here&#x27;s what&#x27;s new and what it means for your workflow.</p>
-<h3>🆕 Claude Code Channels (Research Preview) — v2.1.8+</h3>
-<p><strong>The biggest new primitive this week.</strong> <a href="https://x.com/trq212/status/2034761016320696565">Claude Code Channels</a> lets you control a running Claude Code session via MCP-connected messaging platforms, launching with <strong>Telegram and Discord</strong> support.</p>
-<ul>
-<li>Enable Telegram: <code>claude --channels plugin:telegram@claude-plugins-official</code>, then <code>/telegram:configure &lt;token&gt;</code></li>
-<li>Enable Discord: see the <a href="https://x.com/hyuki/status/2034890113726259495">official Discord README</a></li>
-<li><strong>What this unlocks:</strong> Claude Code was previously a &quot;sit and watch&quot; tool. Now it&#x27;s a teammate you message. Kick off a long-running task, walk away, and steer it from your phone. Get progress updates, approve changes, and redirect — all via Telegram or Discord.</li>
-<li>Community projects like OpenClaw had hacked this together already; now it&#x27;s first-party.</li>
-</ul>
-<h3>🆕 Dispatch + Claude Code Integration</h3>
-<p><a href="https://x.com/felixrieseberg/status/2034005731457044577">Dispatch</a> — Cowork&#x27;s persistent background agent — can now <a href="https://x.com/felixrieseberg/status/2034381385134399913">launch Claude Code sessions</a> directly. Ask Dispatch to &quot;build, make, or improve something&quot; and it spawns a Code session on your local machine. Files stay local, you approve before Claude acts. Now out to <strong>100% of Pro users</strong>.</p>
-<h3>🆕 Remote Control Enhancements</h3>
-<ul>
-<li>Remote Control is now available to all Pro users (<code>claude rc</code> or <code>/remote-control</code>)</li>
-<li><a href="https://x.com/noahzweben/status/2032533699116355819">Session Spawning</a>: Run <code>claude remote-control</code> and spawn a <strong>new</strong> local session from your mobile app (requires GitHub set up on mobile; Max/Teams/Enterprise, ≥2.1.74)</li>
-<li><a href="https://x.com/noahzweben/status/2034452278971932695">Remote Control in VSCode</a> is now live</li>
-<li>Custom environments supported when running Claude Code remotely via claude.ai, desktop, and mobile</li>
-</ul>
-<h3>🆕 Voice Mode — Rolled Out to 100%</h3>
-<p><a href="https://x.com/trq212/status/2032632599429136753">Voice mode is now live</a> for all Claude Code Desktop and Cowork users. Talk to Claude instead of typing.</p>
-<h3>🆕 New CLI Features &amp; Shortcuts</h3>
-<p>From the <a href="https://x.com/trq212/status/2032633753936474364">full changelog</a>:</p>
-<ul>
-<li><code>claude --name &lt;NAME&gt;</code> names your session on start; sessions auto-name after plan mode</li>
-<li><code>/color</code> changes the color of the prompt input</li>
-<li><code>postcompact</code> hook now available</li>
-<li><code>/loop</code> command: schedule recurring tasks for up to 3 days (<code>/loop babysit all my PRs. Auto-fix build issues...</code>, <code>/loop every morning use the Slack MCP to give me a standup</code>)</li>
-<li><code>effort: max</code> flag makes Claude reason longer and use as many tokens as needed</li>
-<li>Three power-user shortcuts (<a href="https://x.com/_catwu/status/2032499411230785661">@_catwu</a>): <code>!</code> prefix runs bash inline with output in context; <code>ctrl+s</code> stashes your draft; <code>ctrl+g</code> opens prompt in <code>$EDITOR</code></li>
-<li><code>CLAUDE_CODE_AUTO_COMPACT_WINDOW</code> env var lets you customize your auto-compact threshold</li>
-</ul>
-<h3>🆕 Code Review (Research Preview, Teams/Enterprise)</h3>
-<p><a href="https://x.com/claudeai/status/2031088171262554195">Code Review</a> dispatches a team of agents on every PR open to hunt for bugs in parallel, verify findings, and rank by severity. Results: PRs with substantive review comments went from 16% → 54% at Anthropic; &lt;1% of findings marked incorrect by engineers; on large PRs (1,000+ lines), 84% surface findings averaging 7.5 issues each. Cost: $15–25 per review, billed on token usage.</p>
-<h3>🆕 Skills Updates</h3>
-<ul>
-<li>Skill-creator now <a href="https://x.com/MaheshMurag/status/2028975163849560382">writes evals and optimizes descriptions automatically</a></li>
-<li>Skills now work in Claude for Excel and PowerPoint add-ins</li>
-<li><code>context: fork</code> flag runs a skill in an isolated subagent; the main context only sees the final result</li>
-<li>Uber is using Skills org-wide; Garry Tan&#x27;s <code>gstack</code> repo (29k stars) documents a 15-skill workflow that writes 600k lines of code in 60 days</li>
-</ul>
-<h3>⚠️ Breaking / Migration Notes</h3>
-<ul>
-<li><strong>DST bug fixed in 1.1.5749:</strong> If you had scheduled tasks and live in a DST-observing timezone, your app got stuck in an infinite loop during the March clock change. <a href="https://x.com/amorriscode/status/2030732078011347319">Update immediately</a> if you haven&#x27;t.</li>
-<li>Opus 4.6 1M is now the <strong>default</strong> model for Max/Teams/Enterprise — you don&#x27;t need to configure anything, but be aware your sessions are now using a larger context window.</li>
-<li>1M context is available for standard pricing on all plans via Claude Code.</li>
-</ul>
-<h3>Performance</h3>
-<p><a href="https://x.com/felixrieseberg/status/2034688574239776778">claude.ai and the desktop apps got meaningfully faster</a> this week. Architecture moved from SSR to a static Vite + TanStack Router setup served from edge workers. Time to first byte down <strong>65% at p75</strong>. The team is calling this an architectural change — expect more to come.</p>
+<h3>📱 Code Channels: Telegram &amp; Discord Integration Ships</h3>
+<p>The headline feature of the day: Claude Code now officially supports <strong>&quot;Code Channels&quot;</strong> — letting you control a Claude Code session directly from Telegram or Discord. Multiple developers across Japanese, Turkish, and Chinese-language communities are reacting to the launch (<a href="https://x.com/dorukyalcinsoy/status/2034894960848171365">dorukyalcinsoy</a>, <a href="https://x.com/idljpx/status/2034893853174698106">idljpx</a>, <a href="https://x.com/curo_crom/status/2034894215969435883">curo_crom</a>, <a href="https://x.com/_DXVIII/status/2034893684609610011">_DXVIII</a>). <strong>Practical impact:</strong> you can now fire off tasks to your Claude Code agent from your phone without touching a terminal — though one developer (<a href="https://x.com/8823scholar/status/2034893700283973739">8823scholar</a>) flagged a known issue: when <code>AskUserQuestion</code> is triggered during a remote session, the prompt doesn&#x27;t surface on the remote side, effectively freezing that session. Worth monitoring if you&#x27;re using the headless/remote-control flow.</p>
+<h3>💸 Run Claude Code on Qwen or DeepSeek — 90% Cost Reduction</h3>
+<p>A community-built adapter layer lets you swap Anthropic&#x27;s backend for Chinese frontier models, claiming up to 90% cost savings (<a href="https://x.com/tiezi134635/status/2034894882108801459">tiezi134635</a>):</p>
+<pre><code class="language-bash">npx qwen-adapter install    # routes to Tongyi Qianwen
+npx deepseek-adapter install # routes to DeepSeek
+</code></pre>
+<p>Both adapters claim full support for Tool Calling, streaming, and multimodal inputs — the three things that matter most for Claude Code&#x27;s agentic loop. <strong>Caveat:</strong> these are community projects, not Anthropic-official. Validate tool-call fidelity before trusting them in production pipelines.</p>
+<h3>🔧 Skills Ecosystem Growing — But Management Is a Pain Point</h3>
+<p>Developers are building and sharing reusable <strong>skills</strong> (CLAUDE.md-packaged directive bundles) for Claude Code at a fast clip. One notable example: a 13-sub-skill SEO automation skill that runs entirely from a single <code>CLAUDE.md</code> drop-in (<a href="https://x.com/mayorxbt/status/2034894579070034000">mayorxbt</a>). Meanwhile, users are asking for a unified skill manager that works across Claude Code, Codex, and OpenClaw — no such tool exists yet, which represents an open opportunity (<a href="https://x.com/Aiming_next/status/2034894437894300131">Aiming_next</a>).</p>
+<h3>🔗 MCP + Claude Code Workflow Wins</h3>
+<p>A designer successfully wired up a <strong>Claude Code → Figma MCP</strong> pipeline, prompting a calculator app into existence and pushing it directly into Figma — painful to debug, but satisfying once running (<a href="https://x.com/changmou627/status/2034893817976168905">changmou627</a>). Separately, a Thai developer highlighted the <strong>x402/MPP</strong> pattern via Tempo&#x27;s MCP server, enabling Claude Code to call Gemini for image generation and Perplexity for search within the same session (<a href="https://x.com/audiswk/status/2034894221510156412">audiswk</a>). These multi-provider MCP compositions are fast becoming a practical pattern for production agent workflows.</p>
+<h3>🍎 iOS Build Environment with Claude Code + Xcode</h3>
+<p>One developer has assembled a full iOS build pipeline on a Mac Mini M2: <strong>Xcode 26.3 + VSCode + Claude Code + Claude Agent</strong>, with OpenAI Codex CLI running on an Ubuntu sidecar (<a href="https://x.com/tsugu_shinomiya/status/2034893908153643274">tsugu_shinomiya</a>). Not an official setup, but illustrates how far the community is pushing hybrid agent environments.</p>
+<h3>⚡ Model Choice: Opus Still Wins for Heavy Coding</h3>
+<p>Community consensus continues to favor <strong>Claude Opus</strong> for serious coding tasks over lighter models (<a href="https://x.com/indrawxyz/status/2034894938916495851">indrawxyz</a>), and heavy Claude Code users are noting that at scale, the economics of Cursor ($5k/month territory) make Claude Code&#x27;s direct API usage the rational choice (<a href="https://x.com/phantomofslop/status/2034894597202272711">phantomofslop</a>).</p>
 <hr/>
 <h2>Worth Watching</h2>
 <ul>
-<li><strong>Code with Claude developer conference</strong> is returning this spring in <a href="https://x.com/claudeai/status/2034308517964956051">San Francisco, London, and Tokyo</a> — full day of workshops, demos, and 1:1 office hours. Virtual attendance also available.</li>
-<li><strong>Claude Community Ambassadors</strong> program <a href="https://x.com/claudeai/status/2029999626926076179">launched</a> — lead local meetups, get funding, swag, and monthly API credits. Open to any background worldwide.</li>
-<li><strong>Figma + Claude Code livestream</strong> scheduled for March 31 — <a href="https://x.com/trq212/status/2034729777903673706">@trq212</a> and Figma will demo using Claude Code with the Figma MCP for designer/engineer collaboration.</li>
-<li><strong>Automatic prompt caching</strong> is now on by default in the API — <a href="https://x.com/alexalbert__/status/2024586006633271386">no more manual cache points</a>.</li>
-<li><strong>Ramp AI Index</strong> reports Anthropic is now <a href="https://x.com/bcherny/status/2031847745733214540">the default AI vendor for businesses</a>, per enterprise spend data.</li>
-<li><strong>Gemini political speech experiment</strong> went viral on Reddit — users prompting Gemini for an &quot;honest political speech&quot; are getting unexpectedly candid outputs. Light reading for a Friday.</li>
+<li><strong>Controller/voice vibe coding?</strong> Someone floated the idea of connecting an Xbox or PlayStation controller + voice input to Claude Code for a fully hands-free coding experience (<a href="https://x.com/teknicsand/status/2034894834536993114">teknicsand</a>). Gimmick or future UX primitive? Watch this space.</li>
+<li><strong>Claude Code Meetup Japan #4</strong> is organizing speaker applications (<a href="https://x.com/eltociear/status/2034894831378735436">eltociear</a>) — the Japanese Claude Code community is one of the most active non-English developer communities around the tool right now.</li>
+<li><strong>Private inference for Claude Code</strong> remains an unmet demand — developers want to plug Venice or similar private inference keys directly into Claude Code (<a href="https://x.com/0xBludex/status/2034894614293885375">0xBludex</a>). Anthropic hasn&#x27;t addressed this officially.</li>
+<li><strong>Android app development with Claude Code</strong> is getting traction among solo developers, with reports of full build-test-debug cycles completing autonomously (<a href="https://x.com/gallerytruth7/status/2034894131991126159">gallerytruth7</a>).</li>
 </ul></article></div>
     </main>
   </div>
