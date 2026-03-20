@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intellēctus No. 45</title>
+  <title>Intellēctus No. 46</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -716,38 +716,53 @@ body::after {
       <a href="archive.html">← Archive</a>
     </nav>
     <main style="flex:1">
-<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Friday, March 20, 2026 · 1:22 PM</span><span>No. 45</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>Intellēctus — AI Daily Briefing</h1>
-<p>Today&#x27;s digest is light on breaking news but rich in community signal: Claude Code continues to dominate developer conversation globally, with users across Asia and beyond sharing real-world workflows, creative integrations, and head-to-head comparisons with competing tools. The story today is less about announcements and more about how practitioners are bending Claude Code to fit their lives.</p>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Friday, March 20, 2026 · 1:47 PM</span><span>No. 46</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>Intellēctus — AI Daily Briefing: March 20, 2026</h1>
+<p>Today&#x27;s digest is light on breaking news but rich in community signal: Claude Code has clearly crossed a threshold from power-user curiosity to everyday dev infrastructure, with builders worldwide pushing it into novel territory — game generation, legal tech, Discord integrations, and beyond. If you&#x27;re shipping with Claude Code, there&#x27;s plenty of practical noise worth cutting through below.</p>
 <hr/>
 <h2>Claude Code Developer Corner</h2>
-<p><strong>Claude Code vs. the Competition — Field Reports Coming In</strong></p>
-<p>A recurring theme in today&#x27;s community chatter: when autonomous coding agents fail, developers reach for Claude Code. <a href="https://x.com/Snixtp/status/2034900787470500064">@Snixtp</a> flagged frustration with AutoResearch and Codex stalling out mid-run, asking point-blank whether Claude Code handles long-running agentic tasks better — a sentiment echoed by <a href="https://x.com/egebese/status/2034900769686569213">@egebese</a>, who noted that for certain tasks (including fixing OpenClaw issues over SSH), Claude Code is the only tool that gets the job done. The practical takeaway: Claude Code&#x27;s reliability in sustained, multi-step sessions is becoming a genuine differentiator.</p>
-<p><strong>Routing Claude Code Through a Local Reverse Proxy — Unlimited-ish Usage</strong></p>
-<p><a href="https://x.com/0xScottlai/status/2034900695942668367">@0xScottlai</a> shared a detailed thread on iterating across six AI agents over two weeks, highlighting a community-sourced technique (credit to @Rav_Hedda): running a local reverse proxy so agent workloads consume Claude Code Max plan quota rather than burning direct API tokens. The practical upshot — effectively uncapped usage for agent loops without per-token API costs. If you&#x27;re running multi-agent pipelines and hitting rate walls, this pattern is worth studying.</p>
-<p><strong>Claude Code + Discord Integration</strong></p>
-<p><a href="https://x.com/kiyoyo0128/status/2034900512886464890">@kiyoyo0128</a> posted what&#x27;s described as a &quot;breaking&quot; find: Claude Code can be operated directly from Discord via <code>claude --channel discord</code>. Configuration (bot credentials, access permissions) lives globally at <code>~/.claude/channels/discord/</code>, meaning the same bot is accessible from any working directory. This is the kind of lightweight integration that opens Claude Code up as a team-facing tool rather than a solo developer one — fire off coding tasks from a shared channel without leaving your communication layer.</p>
-<p><strong>Claude Code Meetup Japan #4 — Community Growing</strong></p>
-<p><a href="https://x.com/eltociear/status/2034900504179077581">@eltociear</a> is coordinating speaker sign-ups for Claude Code Meetup Japan #4, with lightning talk submissions open. The Japan Claude Code community has been consistently active, and a fourth meetup signals the ecosystem is maturing beyond early adopters.</p>
-<p><strong>&quot;40 Minutes, $34, Life Changed&quot; — The Trading Monitor Story</strong></p>
-<p>Multiple accounts (<a href="https://x.com/faiford/status/2034900681765838938">@faiford</a>, <a href="https://x.com/opalupa/status/2034900517185626483">@opalupa</a>, <a href="https://x.com/sandeep86536350/status/2034900668897776124">@sandeep86536350</a>, <a href="https://x.com/MadeshiaPramod/status/2034900439221588016">@MadeshiaPramod</a>) are sharing (or amplifying) a viral account of building a personal trading monitor with Claude Code in 40 minutes for $34 in hardware — replacing what had been a 6-hour-a-day manual chart-watching habit. The story is doing numbers likely because it hits the core Claude Code pitch: low time investment, tangible outcome, no prior deep engineering required. Worth noting the heavy repost pattern suggests coordinated amplification, so treat the specifics with appropriate skepticism — but the underlying use case (quick hardware + software projects with Claude Code as co-builder) is genuine and reproducible.</p>
+<p><strong>Skills, Orchestration &amp; Novel Workflows</strong></p>
+<p>The community is getting creative with Claude Code&#x27;s &quot;skills&quot; system — essentially structured doc files that teach Claude domain-specific principles before generation begins. <a href="https://x.com/IliaKitchenko/status/2034906186261356613">@IliaKitchenko</a> shared a compelling demo: a skill doc encodes game-dev principles, a spec is generated from it, and Claude builds a fully playable in-browser horror game from that spec. The pattern — <em>skill doc → spec → build</em> — is reusable for any domain. Meanwhile, <a href="https://x.com/Noudea26/status/2034906263377605107">@Noudea26</a> is building <code>packageskills</code>, a tool letting npm package maintainers ship Claude Code-compatible skills directly with their packages (<code>yourpackage-skills install</code>). It&#x27;s also compatible with Codex and OpenCode, suggesting a potential cross-tool standard emerging around skills distribution.</p>
+<p><strong>Multi-Agent &amp; Cross-Tool Orchestration</strong></p>
+<p>There&#x27;s active developer demand for Claude Code + Codex dual-agent setups, where one model reviews the other&#x27;s work. <a href="https://x.com/mrhellogoodbye/status/2034906674624864761">@mrhellogoodbye</a> is exploring managing both in a single window via Telegram as a coordination layer — no clean solution exists yet, but the appetite is real. <a href="https://x.com/Cryptinflux/status/2034906727985160427">@Cryptinflux</a> notes that while multi-agent orchestration with Claude Code subagents is possible, competing approaches like OpenClaw offer a cleaner architecture for this pattern. This remains an unsolved ergonomics problem worth watching.</p>
+<p><strong>Integrations: Telegram, Discord &amp; Beyond</strong></p>
+<p>Two integration threads stand out this cycle. <a href="https://x.com/zerocopyhub/status/2034905862771187875">@zerocopyhub</a> is testing Claude Code&#x27;s new Telegram channel support, which promises proper AFK-during-workday workflows — though automatic session question propagation is still unconfirmed. Separately, <a href="https://x.com/azukiazusa9/status/2034906586632884628">@azukiazusa9</a> has Claude Code communicating via Discord, and <a href="https://x.com/Cryptinflux/status/2034906044380717278">@Cryptinflux</a> has been running Claude Code with a Discord MCP integration daily, noting that native channel support would significantly simplify setup.</p>
+<p><strong>Tooling: macOS Usage Monitor</strong></p>
+<p>A practical gap got filled: <a href="https://x.com/_nok__/status/2034906325969195114">@<em>nok</em>_</a> built a free SwiftUI macOS menu bar app that shows Claude Code (and Codex) remaining usage with a weekly trend prediction line — answering the persistent &quot;how much quota do I have left?&quot; question. It also includes a &quot;Permission Gate&quot; for managing tool approvals from the browser or mobile. <a href="https://x.com/stealth_hacklog/status/2034905839350554941">@stealth_hacklog</a> flagged it as exactly the kind of utility the ecosystem needed.</p>
+<p><strong>Real-World Deployments</strong></p>
+<p>Claude Code is showing up in production legal tech: <a href="https://x.com/makoto_sky8/status/2034906070343381073">@makoto_sky8</a> reports that a Japanese lawyer used Claude Code solo to build and ship &quot;Judge Map&quot; — a visualization tool covering 2,500 judges — in roughly one month, using Next.js and SQLite. On the content side, <a href="https://x.com/Mar_3simai/status/2034906109501436125">@Mar_3simai</a> notes that delegating subtitle/caption work to Claude Code with style specifications is cutting production time from ~20 hours/month to ~4 hours.</p>
+<p><strong>Platform Friction &amp; Complaints</strong></p>
+<p>Not everything is smooth. <a href="https://x.com/_bluemtn/status/2034906359930687514">@_bluemtn</a> reports Sonnet 4.6 in Claude Code feeling &quot;dumber&quot; — exhibiting short-range code awareness rather than holistic project understanding. <a href="https://x.com/LearnWithScribe/status/2034905829199994899">@LearnWithScribe</a> is hitting WSL stability issues, arguing that CLI agents should be built in Rust or Zig rather than Node. And <a href="https://x.com/dkodr/status/2034905856534253754">@dkodr</a> points out that while <code>/voice</code> in Claude Code handles Polish fine, Claude&#x27;s speech API still doesn&#x27;t officially support the language — a gap that&#x27;s hard to explain.</p>
+<p><strong>The Usage Cliff Concern</strong></p>
+<p><a href="https://x.com/atode_app/status/2034906830594613717">@atode_app</a> raises a pointed behavioral observation: a temporary 2× usage allowance period is conditioning users to build workflows that exceed their normal plan limits. When the promotional period ends, the downgrade will feel like a regression — a classic engagement trap worth flagging if you&#x27;re architecting Claude Code into production pipelines.</p>
 <hr/>
 <h2>Worth Watching</h2>
 <ul>
-<li>The volume of non-English Claude Code conversation (Mandarin, Japanese, Turkish) in today&#x27;s feed is notable. Claude Code&#x27;s community is genuinely global, and workflows and techniques are being developed and shared outside English-language channels. If you&#x27;re only reading English-language tech Twitter, you&#x27;re missing a chunk of the ecosystem.</li>
-<li>The local reverse proxy pattern for routing agent traffic through Max plan quotas is community-sourced and not officially documented — use with awareness that it may conflict with Anthropic&#x27;s terms of service or change as the platform evolves.</li>
+<li><strong>ARM64 Windows users:</strong> <a href="https://x.com/sora19ai/status/2034906235586453561">@sora19ai</a> flagged a must-read resource specifically for running Claude Code on ARM64 Windows — if that&#x27;s your setup, track down the linked thread.</li>
+<li><strong>Context pollution debate:</strong> <a href="https://x.com/liyucheng_2/status/2034906188824158655">@liyucheng_2</a> raises a legitimate architectural question: does Claude Code&#x27;s long system prompt contaminate context for open-ended brainstorming tasks, making plain chat a better tool for ideation? No definitive answer yet, but worth considering in your workflow design.</li>
+<li><strong>Japanese Claude Code book:</strong> The community is rallying around a newly published Japanese-language Claude Code guide by @aoi_kurochan, with <a href="https://x.com/Mika_15AI/status/2034906908877103565">@Mika_15AI</a> celebrating its release — a signal of how rapidly Claude Code documentation and educational content is spreading beyond English.</li>
 </ul>
 <hr/>
 <h3>Sources</h3>
 <ul>
-<li>@Snixtp on Claude Code vs AutoResearch/Codex — https://x.com/Snixtp/status/2034900787470500064</li>
-<li>@egebese on Claude Code for SSH/OpenClaw fixes — https://x.com/egebese/status/2034900769686569213</li>
-<li>@0xScottlai on local reverse proxy for Claude Code Max — https://x.com/0xScottlai/status/2034900695942668367</li>
-<li>@faiford on $34 trading monitor built with Claude Code — https://x.com/faiford/status/2034900681765838938</li>
-<li>@sandeep86536350 (repost of trading monitor story) — https://x.com/sandeep86536350/status/2034900668897776124</li>
-<li>@opalupa (repost of trading monitor story) — https://x.com/opalupa/status/2034900517185626483</li>
-<li>@MadeshiaPramod (repost of trading monitor story) — https://x.com/MadeshiaPramod/status/2034900439221588016</li>
-<li>@kiyoyo0128 on Claude Code Discord channel integration — https://x.com/kiyoyo0128/status/2034900512886464890</li>
-<li>@eltociear on Claude Code Meetup Japan #4 — https://x.com/eltociear/status/2034900504179077581</li>
+<li>@Mika_15AI congratulates @aoi_kurochan on Claude Code book — https://x.com/Mika_15AI/status/2034906908877103565</li>
+<li>@atode_app on 2× usage period conditioning — https://x.com/atode_app/status/2034906830594613717</li>
+<li>@Cryptinflux on multi-agent orchestration and OpenClaw — https://x.com/Cryptinflux/status/2034906727985160427</li>
+<li>@mrhellogoodbye on Claude Code + Codex dual-agent review — https://x.com/mrhellogoodbye/status/2034906674624864761</li>
+<li>@mrhellogoodbye reply on same topic — https://x.com/mrhellogoodbye/status/2034906575907770417</li>
+<li>@azukiazusa9 on Claude Code via Discord — https://x.com/azukiazusa9/status/2034906586632884628</li>
+<li>@_bluemtn on Sonnet 4.6 quality regression — https://x.com/_bluemtn/status/2034906359930687514</li>
+<li>@<em>nok</em>_ on macOS menu bar usage monitor — https://x.com/<em>nok</em>_/status/2034906325969195114</li>
+<li>@Noudea26 on packageskills for npm — https://x.com/Noudea26/status/2034906263377605107</li>
+<li>@sora19ai on ARM64 Windows Claude Code — https://x.com/sora19ai/status/2034906235586453561</li>
+<li>@IliaKitchenko on horror game generation via skills — https://x.com/IliaKitchenko/status/2034906186261356613</li>
+<li>@liyucheng_2 on context pollution question — https://x.com/liyucheng_2/status/2034906188824158655</li>
+<li>@Mar_3simai on subtitle workflow time savings — https://x.com/Mar_3simai/status/2034906109501436125</li>
+<li>@makoto_sky8 on Judge Map legal tech project — https://x.com/makoto_sky8/status/2034906070343381073</li>
+<li>@Cryptinflux on Discord MCP integration — https://x.com/Cryptinflux/status/2034906044380717278</li>
+<li>@zerocopyhub on Telegram channel integration — https://x.com/zerocopyhub/status/2034905862771187875</li>
+<li>@dkodr on Polish language gap in speech API — https://x.com/dkodr/status/2034905856534253754</li>
+<li>@stealth_hacklog on macOS usage monitor — https://x.com/stealth_hacklog/status/2034905839350554941</li>
+<li>@LearnWithScribe on WSL stability issues — https://x.com/LearnWithScribe/status/2034905829199994899</li>
 </ul></article></div>
     </main>
   </div>
