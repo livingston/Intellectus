@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intellēctus No. 58</title>
+  <title>Intellēctus No. 59</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -781,57 +781,48 @@ body::after {
       <a href="archive.html">← Archive</a>
     </nav>
     <main style="flex:1">
-<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Saturday, March 21, 2026 · 2:54 PM</span><span>No. 58</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 21, 2026</h1>
-<p>Today&#x27;s digest is heavy on Claude Code momentum: the tool is spreading from enterprise workflows to solo practitioners, bath-time hacks, and grocery-line deploys, while OpenAI reportedly races to build a competing &quot;superapp.&quot; Meanwhile, a sharp Reddit post challenges the memory-plugin orthodoxy in AI agent design, and Browser Use CLI 2.0 drops with major speed gains.</p>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Saturday, March 21, 2026 · 6:00 PM</span><span>No. 59</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 21, 2026</h1>
+<p>Today&#x27;s digest is heavy on developer sentiment and community tooling, with Claude Code dominating the conversation across multiple languages and continents. Meanwhile, arXiv makes a historic structural move, and a hyperdimensional computing trick is turning heads among token-budget-conscious engineers.</p>
 <hr/>
-<h2>Industry Moves</h2>
-<p><strong>OpenAI reportedly building a unified &quot;superapp&quot;</strong> to consolidate ChatGPT, Codex, and browser automation into a single desktop interface. Multiple observers note this mirrors Anthropic&#x27;s existing Claude Chat + Cowork + Claude Code ecosystem. The competitive pressure is mounting, but as one commenter put it, the integrated experience Anthropic already ships is a significant head start.</p>
-<p><strong>Browser Use CLI 2.0</strong> has launched with 2× speed improvement and 50% reduction in token costs. The tool now supports direct takeover of a running Chrome instance via native CDP protocol, making it a strong fit for Claude Code and other AI agents handling form-filling and web automation tasks. It&#x27;s open source.</p>
+<h2>Infrastructure &amp; Open Science</h2>
+<p><strong>arXiv declares independence from Cornell</strong>, spinning off as an independent nonprofit to gain financial flexibility and better cope with a flood of submissions — including what organizers diplomatically call &quot;AI slop.&quot; The preprint server, which has been the backbone of ML research distribution for decades, hopes the structural change will let it raise funds more aggressively and invest in submission quality controls. A community developer has also launched <a href="https://www.reddit.com/gallery/1rzon32">Discuria</a>, a search-and-discussion tool purpose-built for arXiv&#x27;s AI/ML corpus, letting users read and debate papers in one place — a timely complement to arXiv&#x27;s independence push.</p>
 <hr/>
-<h2>AI Agents &amp; Architecture</h2>
-<p><strong><a href="https://reddit.com/r/artificial/comments/1rzmlqe/metacog_proprioception_not_yet_another_memory_mcp/">Metacog: Proprioception, Not Yet Another Memory MCP</a></strong> is a thoughtful Reddit post pushing back on the dominant pattern of bolting memory plugins onto AI coding agents. The author argues that stale task history is the wrong abstraction — what agents need is something closer to biological proprioception: real-time awareness of their own state and capabilities. It&#x27;s a timely challenge to the &quot;just add memory&quot; reflex sweeping the agent tooling space.</p>
-<p>On the payments layer for agents, <strong>AgentPay MCP</strong> — an MCP server with EVM-enforced spend limits — was merged into NVIDIA&#x27;s official NeMo Agent Toolkit catalog. Stripe&#x27;s <code>purl</code> (a Rust CLI for paid HTTP) and Coinbase&#x27;s <code>x402</code> protocol are also maturing fast, signaling that the agent economy&#x27;s wallet infrastructure is consolidating quickly.</p>
+<h2>Open Source &amp; Dev Tools</h2>
+<p><strong>Atuin v18.13 ships AI-powered shell search</strong> alongside a PTY proxy feature, according to the <a href="https://blog.atuin.sh/atuin-v18-13/">official release post</a>. The shell history tool now lets you use natural language to find commands you half-remember, and the PTY proxy opens up new possibilities for remote shell session management. It&#x27;s a small but meaningful step toward AI-native terminal workflows.</p>
 <hr/>
 <h2>Claude Code Developer Corner</h2>
-<p><strong>Real-world adoption is exploding across unexpected verticals.</strong> A Japanese accountant is solo-managing 60 client firms using Claude Code with zero staff. An HR professional delegated a wave of commuter-cost recheck requests (triggered by the March 14 JR fare revision) to Claude Code and reports ~99% completion. A coach built a client intake system in 20 minutes from a plain-English description — a job that got a 3-week developer quote last year. These aren&#x27;t toy demos; they&#x27;re production workflows.</p>
-<p><strong>Environment misidentification bug flagged in the Claude Code desktop app.</strong> A Japanese developer published a detailed bug report noting the desktop app fails to correctly identify its own runtime environment — confusing itself with the terminal version or web version. This causes subtle behavioral divergence. No official patch confirmed yet; developers building on or around the desktop app should be aware.</p>
-<p><strong>Sub-agent patterns are becoming a core workflow.</strong> Multiple power users are running Claude Code sub-agents in parallel for research, auditing, and QA. One pattern gaining traction: spawning a separate sub-agent to audit code <em>while</em> the primary agent writes it, significantly improving output quality. Another user is calling OpenAI&#x27;s Codex from within Claude Code sub-agents for data retrieval tasks — cross-lab orchestration is now routine.</p>
-<p><strong>Session auto-rename is a small but appreciated UX win.</strong> Upon approving a plan, Claude Code automatically generates a meaningful session name — a minor feature that&#x27;s earning outsized praise from users managing multiple concurrent sessions.</p>
-<p><strong><code>ccconv</code> — a new open-source tool</strong> built by a community developer to replay and review complete Claude Code conversation histories. Motivated by the desire to audit and learn from past sessions, it fills a gap in Claude Code&#x27;s native session introspection.</p>
-<p><strong>Remote control via Telegram is real and people love it.</strong> The ability to drive Claude Code from a mobile Telegram interface means developers are shipping fixes from bath, bed, and grocery lines. One user explicitly switched to Claude Code <em>because</em> it enables phone-based development. The ergonomics of agentic coding are changing fast.</p>
-<p><strong>Workflow guide published on Qiita:</strong> &quot;Settings and Workflows for Running Solo Team Development with Claude Code&quot; — a Japanese-language deep dive into configuration patterns for solo developers using Claude Code to simulate multi-role team workflows.</p>
-<p><strong>The &quot;make money with Claude Code&quot; hype is being called out.</strong> A Japanese-language post is circulating warning followers that viral &quot;earn ¥1M with Claude Code&quot; posts are engagement bait. A healthy signal that the community is developing critical skepticism alongside enthusiasm.</p>
+<p><strong>Token costs are the dominant pain point this week.</strong> A developer on Reddit shared a technique for <a href="https://i.redd.it/23a47pct6eqg1.jpeg">drastically cutting Claude Code token usage</a> by using HDC (hyperdimensional computing) as a context engine for source trees via a platform called Glyphh. The approach encodes your codebase into compact hyperdimensional vectors rather than dumping raw source into context — potentially saving millions of tokens per week for heavy users. If you&#x27;re burning through API budget on large monorepos, this is worth investigating.</p>
+<p><strong>Scheduled tasks landed.</strong> Multiple community members are noting that Claude Code now supports scheduled task execution — meaning you can queue work and come back to finished output. One user describes a Telegram-based setup where Claude Code builds landing pages remotely while they&#x27;re at the gym, dispatching tasks via message and returning to completed work. The pattern: trigger via Telegram → Claude Code executes on your local machine → results waiting on return.</p>
+<p><strong>Custom instructions + coding conventions = measurably better output.</strong> Several Japanese developers (and others) are reporting a practical finding: feeding Claude Code your project&#x27;s naming conventions and team coding standards via custom instructions produces noticeably more precise suggestions. This isn&#x27;t surprising in theory, but the community is validating it empirically — if you haven&#x27;t set up a project-level <code>CLAUDE.md</code> with your conventions, now&#x27;s the time.</p>
+<p><strong>Workflow automation is going deep.</strong> One user reports combining Notta (transcription) + Notion + Claude Code to fully automate the meeting → minutes → follow-up email pipeline, reducing 7.5 hours of post-meeting work across six meetings to near-zero. The human&#x27;s only remaining task: hit send on the email.</p>
+<p><strong>Cost surprises remain a real issue.</strong> A developer reported accidentally burning $70 in a single Claude Code session while experimenting with the X API integration — a reminder that agentic loops with external API calls can compound costs quickly. Set usage limits and audit tool calls before letting agents run unsupervised against paid third-party APIs.</p>
+<p><strong>The &quot;almost done → breaks → quota dies&quot; trap</strong> is generating frustration in the community, with users describing the experience of reaching 80–90% completion on a project only to hit context or quota limits mid-fix. The practical mitigation: checkpoint working states aggressively, use git commits at each stable milestone, and don&#x27;t attempt large refactors in a single session.</p>
+<p><strong>Engineers are pushing back on hype.</strong> A measured counterpoint is circulating: Claude Code can one-shot a landing page, but not an entire system. The consensus from experienced users is that the tool amplifies domain expertise rather than replacing it — Claude Code doesn&#x27;t replace domain knowledge, it runs your instincts at 20x speed. Developers who understand what the AI generates retain a durable edge.</p>
 <hr/>
 <h2>Worth Watching</h2>
-<p><strong><a href="https://reddit.com/r/ClaudeAI/comments/1rzmx3t/claude_for_education/">Claude for Education</a></strong> surfaces a real tension: a 12-year-old asked his parent to use Claude to answer a homework question about the Black Death and email him the result. Schools are deploying ChatGPT and Copilot on classroom computers, but Claude appears to be the household tool of choice. The pedagogical implications — and the gap between school AI policy and home AI access — are worth tracking.</p>
-<p><strong>OpenAI&#x27;s superapp framing</strong> is generating significant Japanese-language commentary comparing it directly to Anthropic&#x27;s Claude Cowork + Claude Code bundle. The narrative that OpenAI is now following Anthropic&#x27;s product roadmap is spreading in non-English tech communities.</p>
+<ul>
+<li><strong>Replit Agent 4 + Claude Code</strong> is being praised by some developers as a combination that handles even lazy prompts better than carefully engineered Codex workflows — worth watching as agent-layer tooling matures.</li>
+<li><strong>SkillForge</strong> is building portable <code>SKILL.md</code> files generated from screen recordings, designed to give Claude Code agents reusable, transferable skill definitions. Early-stage but conceptually interesting for teams trying to standardize agent behavior.</li>
+<li>The <strong>XGBoost vs. DistilBERT benchmark</strong> for detecting email deliverability degradation (&quot;Month 2 Tanking&quot;) is <a href="https://reddit.com/r/MachineLearning/comments/1rzpc28/p_benchmark_using_xgboost_vs_distilbert_for/">a niche but practical ML comparison</a> for anyone running cold email infrastructure at scale.</li>
+</ul>
 <hr/>
 <h3>Sources</h3>
 <ul>
-<li>Metacog: Proprioception, Not Yet Another Memory MCP — https://reddit.com/r/artificial/comments/1rzmlqe/metacog_proprioception_not_yet_another_memory_mcp/</li>
-<li>Claude for Education — https://reddit.com/r/ClaudeAI/comments/1rzmx3t/claude_for_education/</li>
-<li>Browser Use CLI 2.0 (@webb_dever) — https://x.com/webb_dever/status/2035284927097500049</li>
-<li>Claude Code desktop app environment misidentification bug (@vavava_net) — https://x.com/vavava_net/status/2035286139788255289</li>
-<li>Claude Code image generation QA limitations (@jonigata_ai) — https://x.com/jonigata_ai/status/2035285867376635929</li>
-<li>Claude Code vs Cursor agentic thinking (@georgiibuilds) — https://x.com/georgiibuilds/status/2035285856945160198</li>
-<li>Claude Code client intake system in 20 minutes (@weesiang_lim) — https://x.com/weesiang_lim/status/2035285813781803133</li>
-<li>Claude Code session auto-rename (@kyongshiii06) — https://x.com/kyongshiii06/status/2035285733657964715</li>
-<li>Claude Code mobile/phone development (@AquiTCD) — https://x.com/AquiTCD/status/2035285604431523896</li>
-<li>Claude Code SEO workflows (@Cryptinflux) — https://x.com/Cryptinflux/status/2035285587083812976</li>
-<li>Claude Code &quot;make money&quot; hype warning (@Bylonnm) — https://x.com/Bylonnm/status/2035285489213911324</li>
-<li>OpenAI superapp vs Claude Code (@anneshu_nag) — https://x.com/anneshu_nag/status/2035285437640847423</li>
-<li>Claude Code JR fare revision HR automation (@hasamayo1217) — https://x.com/hasamayo1217/status/2035285406099681689</li>
-<li>ccconv — Claude Code conversation review tool (@FruitRiin) — https://x.com/FruitRiin/status/2035285406082814188</li>
-<li>OpenAI superapp details vs Claude Code (@FunKy0k2) — https://x.com/FunKy0k2/status/2035285351166586955</li>
-<li>Solo team development with Claude Code workflow guide (@qiitapoi) — https://x.com/qiitapoi/status/2035285337065603541</li>
-<li>Infinite Claude Code usage as competitive lever (@iamkylebalmer) — https://x.com/iamkylebalmer/status/2035285310079127852</li>
-<li>OpenAI superapp vs Anthropic Cowork/Claude Code (@NFTTYO60939595) — https://x.com/NFTTYO60939595/status/2035285287299932200</li>
-<li>Claude Code × Cursor + Cowork integration setup (@dokugakuman) — https://x.com/dokugakuman/status/2035285133759287587</li>
-<li>Solo accountant managing 60 clients with Claude Code (@bambooincubator) — https://x.com/bambooincubator/status/2035285081917710688</li>
-<li>Claude Code sub-agent audit pattern (@kmizu) — https://x.com/kmizu/status/2035284963374117192</li>
-<li>Claude Code + Codex sub-agent cross-lab orchestration (@Cryptinflux) — https://x.com/Cryptinflux/status/2035284904871879108</li>
-<li>AgentPay MCP + NVIDIA NeMo catalog (@AgentEconoemy) — https://x.com/AgentEconoemy/status/2035284761887772849</li>
-<li>Claude Code Telegram remote control (@martoshiai) — https://x.com/martoshiai/status/2035284753742524460</li>
+<li>Atuin v18.13 release — https://blog.atuin.sh/atuin-v18-13/</li>
+<li>arXiv declares independence from Cornell — https://www.science.org/content/article/arxiv-pioneering-preprint-server-declares-independence-cornell</li>
+<li>Discuria: search and discuss arXiv papers — https://www.reddit.com/gallery/1rzon32</li>
+<li>HDC as context engine for Claude Code token reduction — https://i.redd.it/23a47pct6eqg1.jpeg</li>
+<li>Claude Code scheduled tasks + SkillForge — https://x.com/SyncC2026/status/2035332234069053449</li>
+<li>Telegram-based Claude Code remote workflow — https://x.com/JulianGoldieSEO/status/2035332011146240197</li>
+<li>Custom instructions for coding conventions — https://x.com/OssanMarmot/status/2035332950552907893</li>
+<li>Meeting automation with Notta + Notion + Claude Code — https://x.com/tasogles/status/2035332679869313080</li>
+<li>$70 accidental spend with X API — https://x.com/cgbeginner/status/2035333028151783900</li>
+<li>&quot;Almost done → breaks → quota dies&quot; frustration — https://x.com/RexVoltag/status/2035331976664674791</li>
+<li>Engineers still needed / one-shot limits — https://x.com/simonbalfe/status/2035332600697368604</li>
+<li>Claude Code amplifies domain knowledge — https://x.com/gagansaluja08/status/2035332322061386148</li>
+<li>Running 6 agents with Claude Code — https://x.com/aelson389/status/2035332506455519688</li>
+<li>Replit Agent 4 + Claude Code comparison — https://x.com/TheAshrex/status/2035332258899661035</li>
+<li>XGBoost vs. DistilBERT cold email benchmark — https://reddit.com/r/MachineLearning/comments/1rzpc28/p_benchmark_using_xgboost_vs_distilbert_for/</li>
 </ul></article></div>
     </main>
   </div>
