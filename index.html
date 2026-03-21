@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intellēctus No. 59</title>
+  <title>Intellēctus No. 60</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -781,48 +781,66 @@ body::after {
       <a href="archive.html">← Archive</a>
     </nav>
     <main style="flex:1">
-<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Saturday, March 21, 2026 · 6:00 PM</span><span>No. 59</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 21, 2026</h1>
-<p>Today&#x27;s digest is heavy on developer sentiment and community tooling, with Claude Code dominating the conversation across multiple languages and continents. Meanwhile, arXiv makes a historic structural move, and a hyperdimensional computing trick is turning heads among token-budget-conscious engineers.</p>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Saturday, March 21, 2026 · 6:01 PM</span><span>No. 60</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 21, 2026</h1>
+<p>Today&#x27;s digest is light on bombshell announcements but rich in ecosystem signal: arXiv is betting on independence to fight AI-generated noise, Claude Code continues its march into daily developer workflows worldwide, and a clever hyperdimensional computing trick is helping power users tame their token bills. Here&#x27;s what matters.</p>
 <hr/>
-<h2>Infrastructure &amp; Open Science</h2>
-<p><strong>arXiv declares independence from Cornell</strong>, spinning off as an independent nonprofit to gain financial flexibility and better cope with a flood of submissions — including what organizers diplomatically call &quot;AI slop.&quot; The preprint server, which has been the backbone of ML research distribution for decades, hopes the structural change will let it raise funds more aggressively and invest in submission quality controls. A community developer has also launched <a href="https://www.reddit.com/gallery/1rzon32">Discuria</a>, a search-and-discussion tool purpose-built for arXiv&#x27;s AI/ML corpus, letting users read and debate papers in one place — a timely complement to arXiv&#x27;s independence push.</p>
+<h2>Research &amp; Academia</h2>
+<p><strong>arXiv declares independence from Cornell</strong> in a significant structural move aimed at securing its financial future and combating the surge of AI-generated preprint submissions. The pioneering preprint server is now operating as an independent nonprofit, hoping the new structure gives it more flexibility to raise funds and enforce quality controls against so-called &quot;AI slop&quot; flooding its submission queues. For ML researchers, this is worth watching closely — arXiv is the backbone of how the field shares work, and how it handles AI-generated content will shape research culture going forward.</p>
+<p><a href="https://www.science.org/content/article/arxiv-pioneering-preprint-server-declares-independence-cornell">ArXiv declares independence from Cornell — Science</a></p>
+<p>Meanwhile, a developer launched <strong><a href="https://discuria.org">Discuria</a></strong>, a community search and discussion platform heavily focused on arXiv AI/ML papers. It&#x27;s a niche but useful tool for researchers who find arXiv&#x27;s native interface lacking for discovery and conversation.</p>
+<p><a href="https://www.reddit.com/gallery/1rzon32">Built a website for easily searching and discussing arXiv papers — Reddit</a></p>
 <hr/>
-<h2>Open Source &amp; Dev Tools</h2>
-<p><strong>Atuin v18.13 ships AI-powered shell search</strong> alongside a PTY proxy feature, according to the <a href="https://blog.atuin.sh/atuin-v18-13/">official release post</a>. The shell history tool now lets you use natural language to find commands you half-remember, and the PTY proxy opens up new possibilities for remote shell session management. It&#x27;s a small but meaningful step toward AI-native terminal workflows.</p>
+<h2>Open Source &amp; Tools</h2>
+<p><strong>Atuin v18.13</strong> dropped with a feature that will interest developers using AI in their shell workflows: a new AI integration for shell history search, alongside a PTY proxy and improved search across the board. Atuin&#x27;s shell history sync is already popular among power users, and the AI layer adds semantic search capabilities on top of your actual command history — a practical, low-friction AI augmentation rather than a gimmick.</p>
+<p><a href="https://blog.atuin.sh/atuin-v18-13/">Atuin v18.13 – better search, a PTY proxy, and AI for your shell — Atuin Blog</a></p>
 <hr/>
 <h2>Claude Code Developer Corner</h2>
-<p><strong>Token costs are the dominant pain point this week.</strong> A developer on Reddit shared a technique for <a href="https://i.redd.it/23a47pct6eqg1.jpeg">drastically cutting Claude Code token usage</a> by using HDC (hyperdimensional computing) as a context engine for source trees via a platform called Glyphh. The approach encodes your codebase into compact hyperdimensional vectors rather than dumping raw source into context — potentially saving millions of tokens per week for heavy users. If you&#x27;re burning through API budget on large monorepos, this is worth investigating.</p>
-<p><strong>Scheduled tasks landed.</strong> Multiple community members are noting that Claude Code now supports scheduled task execution — meaning you can queue work and come back to finished output. One user describes a Telegram-based setup where Claude Code builds landing pages remotely while they&#x27;re at the gym, dispatching tasks via message and returning to completed work. The pattern: trigger via Telegram → Claude Code executes on your local machine → results waiting on return.</p>
-<p><strong>Custom instructions + coding conventions = measurably better output.</strong> Several Japanese developers (and others) are reporting a practical finding: feeding Claude Code your project&#x27;s naming conventions and team coding standards via custom instructions produces noticeably more precise suggestions. This isn&#x27;t surprising in theory, but the community is validating it empirically — if you haven&#x27;t set up a project-level <code>CLAUDE.md</code> with your conventions, now&#x27;s the time.</p>
-<p><strong>Workflow automation is going deep.</strong> One user reports combining Notta (transcription) + Notion + Claude Code to fully automate the meeting → minutes → follow-up email pipeline, reducing 7.5 hours of post-meeting work across six meetings to near-zero. The human&#x27;s only remaining task: hit send on the email.</p>
-<p><strong>Cost surprises remain a real issue.</strong> A developer reported accidentally burning $70 in a single Claude Code session while experimenting with the X API integration — a reminder that agentic loops with external API calls can compound costs quickly. Set usage limits and audit tool calls before letting agents run unsupervised against paid third-party APIs.</p>
-<p><strong>The &quot;almost done → breaks → quota dies&quot; trap</strong> is generating frustration in the community, with users describing the experience of reaching 80–90% completion on a project only to hit context or quota limits mid-fix. The practical mitigation: checkpoint working states aggressively, use git commits at each stable milestone, and don&#x27;t attempt large refactors in a single session.</p>
-<p><strong>Engineers are pushing back on hype.</strong> A measured counterpoint is circulating: Claude Code can one-shot a landing page, but not an entire system. The consensus from experienced users is that the tool amplifies domain expertise rather than replacing it — Claude Code doesn&#x27;t replace domain knowledge, it runs your instincts at 20x speed. Developers who understand what the AI generates retain a durable edge.</p>
+<p><strong>Token cost reduction via hyperdimensional computing</strong> is the most technically interesting Claude Code story today. A developer building a platform called <strong>Glyphh</strong> is using HDC (hyperdimensional computing) as a context engine for source trees, compressing codebase representations to dramatically cut token consumption when running Claude Code or similar agentic tools. The claim: developers burning millions of tokens per week on agentic dev sessions may find significant savings by pre-processing their source tree through an HDC layer before feeding it as context. Early-stage, but worth watching if your Claude Code bills are climbing.</p>
+<p><a href="https://i.redd.it/23a47pct6eqg1.jpeg">[P] I cut my Claude Code token usage by using HDC as a context engine for my source tree — Reddit</a></p>
+<p><strong>Scheduled tasks land in Claude Code.</strong> Community buzz confirms that Claude Code now supports scheduled tasks, enabling autonomous background agents to run jobs on a timer without manual invocation. Combined with the existing agentic capabilities, this opens up workflows like automated nightly code reviews, scheduled report generation, or recurring test runs — all driven by Claude Code without human-in-the-loop triggering. This is a meaningful step toward always-on agentic development environments.</p>
+<p><a href="https://x.com/SyncC2026/status/2035332234069053449">@SyncC2026 on X</a></p>
+<p><strong>Remote Claude Code via Telegram</strong> is a workflow pattern gaining traction: set up Claude Code on your home machine, pipe task input through a Telegram bot, and return to finished work. One detailed thread walks through a 10-minute setup that lets you dispatch coding tasks from anywhere — gym, commute, wherever — and come back to completed output. It&#x27;s a simple but effective pattern for async agentic development.</p>
+<p><a href="https://x.com/JulianGoldieSEO/status/2035332011146240197">@JulianGoldieSEO on X</a></p>
+<p><strong>Custom instructions sharpen output quality.</strong> A recurring community finding this week: feeding Claude Code your project&#x27;s naming conventions and team coding standards via custom instructions produces measurably better suggestions. This isn&#x27;t new functionality, but the collective realization seems to be spreading — pre-loading project-specific context transforms Claude Code from a generic coding assistant into something that feels like a teammate who read the style guide. If you haven&#x27;t done this yet, it&#x27;s the highest-ROI configuration change you can make today.</p>
+<p><a href="https://x.com/OssanMarmot/status/2035332950552907893">@OssanMarmot on X</a></p>
+<p><strong>Workflow automation with Notta × Notion × Claude Code:</strong> One power user reports eliminating 7.5 hours of post-meeting work (transcription → meeting minutes → follow-up email drafts) by chaining Notta for transcription, Notion for storage, and Claude Code for generation — fully automated end-to-end, with humans only needed to hit send on the final email. A practical template for teams drowning in meeting overhead.</p>
+<p><a href="https://x.com/tasogles/status/2035332679869313080">@tasogles on X</a></p>
+<p><strong>Cost blowouts are real.</strong> Multiple users flagged runaway API costs when Claude Code is given tool access without tight guardrails — one developer reported burning $70 in a single session while experimenting with the X API. The lesson: when giving Claude Code access to paid external APIs, set hard budget caps or usage limits at the API level before you start. The agent will use what you give it access to, enthusiastically.</p>
+<p><a href="https://x.com/cgbeginner/status/2035333028151783900">@cgbeginner on X</a></p>
+<p><strong>The &quot;80% done, then breaks&quot; quota trap</strong> is generating real frustration. Users report a painful pattern: invest hours getting a project to near-completion with Claude Code, hit quota exactly when requesting a final small change, and face a pay-to-continue wall. This is partly a context-window economics problem and partly a session-management one. The practical mitigation: checkpoint your work aggressively, break large builds into smaller independently completable units, and don&#x27;t run high-stakes sessions close to your quota ceiling.</p>
+<p><a href="https://x.com/RexVoltag/status/2035331976664674791">@RexVoltag on X</a></p>
 <hr/>
 <h2>Worth Watching</h2>
 <ul>
-<li><strong>Replit Agent 4 + Claude Code</strong> is being praised by some developers as a combination that handles even lazy prompts better than carefully engineered Codex workflows — worth watching as agent-layer tooling matures.</li>
-<li><strong>SkillForge</strong> is building portable <code>SKILL.md</code> files generated from screen recordings, designed to give Claude Code agents reusable, transferable skill definitions. Early-stage but conceptually interesting for teams trying to standardize agent behavior.</li>
-<li>The <strong>XGBoost vs. DistilBERT benchmark</strong> for detecting email deliverability degradation (&quot;Month 2 Tanking&quot;) is <a href="https://reddit.com/r/MachineLearning/comments/1rzpc28/p_benchmark_using_xgboost_vs_distilbert_for/">a niche but practical ML comparison</a> for anyone running cold email infrastructure at scale.</li>
+<li>
+<p><strong>Claude&#x27;s qualitative &quot;feel&quot; remains a differentiator</strong> — a well-upvoted Reddit thread from users migrating from OpenAI focuses less on benchmark performance and more on Claude&#x27;s tone, collaboration style, and apparent effort in responses. Harder to quantify, but clearly matters for retention. <a href="https://reddit.com/r/ClaudeAI/comments/1rznoc1/claude_really_does_hit_different_but_how/">Claude really does hit different, but how? — Reddit</a></p>
+</li>
+<li>
+<p><strong>Text Adventure Games MCP skill for Claude Desktop hits v1.1.0</strong>, adding persistent campaign arcs so your story continues across sessions rather than resetting. Niche, but a solid demonstration of stateful MCP-based skills for Claude Desktop. <a href="https://reddit.com/r/ClaudeAI/comments/1rzp2br/update_v110_text_adventure_games/">Update v1.1.0 - Text Adventure Games — Reddit</a></p>
+</li>
+<li>
+<p><strong>&quot;Vibe coding went mainstream in 2026&quot;</strong> is the emerging consensus across multiple language communities (English, Japanese, Chinese, Spanish) in today&#x27;s Claude Code Twitter chatter. The nuance that keeps surfacing: developers who understand what the AI generates still hold a durable edge over pure prompt-and-pray users.</p>
+</li>
 </ul>
 <hr/>
 <h3>Sources</h3>
 <ul>
-<li>Atuin v18.13 release — https://blog.atuin.sh/atuin-v18-13/</li>
-<li>arXiv declares independence from Cornell — https://www.science.org/content/article/arxiv-pioneering-preprint-server-declares-independence-cornell</li>
-<li>Discuria: search and discuss arXiv papers — https://www.reddit.com/gallery/1rzon32</li>
-<li>HDC as context engine for Claude Code token reduction — https://i.redd.it/23a47pct6eqg1.jpeg</li>
-<li>Claude Code scheduled tasks + SkillForge — https://x.com/SyncC2026/status/2035332234069053449</li>
-<li>Telegram-based Claude Code remote workflow — https://x.com/JulianGoldieSEO/status/2035332011146240197</li>
-<li>Custom instructions for coding conventions — https://x.com/OssanMarmot/status/2035332950552907893</li>
-<li>Meeting automation with Notta + Notion + Claude Code — https://x.com/tasogles/status/2035332679869313080</li>
-<li>$70 accidental spend with X API — https://x.com/cgbeginner/status/2035333028151783900</li>
-<li>&quot;Almost done → breaks → quota dies&quot; frustration — https://x.com/RexVoltag/status/2035331976664674791</li>
-<li>Engineers still needed / one-shot limits — https://x.com/simonbalfe/status/2035332600697368604</li>
-<li>Claude Code amplifies domain knowledge — https://x.com/gagansaluja08/status/2035332322061386148</li>
-<li>Running 6 agents with Claude Code — https://x.com/aelson389/status/2035332506455519688</li>
-<li>Replit Agent 4 + Claude Code comparison — https://x.com/TheAshrex/status/2035332258899661035</li>
-<li>XGBoost vs. DistilBERT cold email benchmark — https://reddit.com/r/MachineLearning/comments/1rzpc28/p_benchmark_using_xgboost_vs_distilbert_for/</li>
+<li>ArXiv declares independence from Cornell — https://www.science.org/content/article/arxiv-pioneering-preprint-server-declares-independence-cornell</li>
+<li>Built a website for easily searching and discussing arXiv papers — https://www.reddit.com/gallery/1rzon32</li>
+<li>Atuin v18.13 – better search, a PTY proxy, and AI for your shell — https://blog.atuin.sh/atuin-v18-13/</li>
+<li>[P] I cut my Claude Code token usage by using HDC as a context engine for my source tree — https://i.redd.it/23a47pct6eqg1.jpeg</li>
+<li>Claude Code just got scheduled tasks — https://x.com/SyncC2026/status/2035332234069053449</li>
+<li>Remote Claude Code via Telegram — https://x.com/JulianGoldieSEO/status/2035332011146240197</li>
+<li>Custom instructions improve Claude Code output quality — https://x.com/OssanMarmot/status/2035332950552907893</li>
+<li>Notta × Notion × Claude Code meeting automation — https://x.com/tasogles/status/2035332679869313080</li>
+<li>Claude Code API cost blowout — https://x.com/cgbeginner/status/2035333028151783900</li>
+<li>The &quot;Almost Done → Breaks → Quota Dies&quot; trap — https://x.com/RexVoltag/status/2035331976664674791</li>
+<li>Claude really does hit different, but how? — https://reddit.com/r/ClaudeAI/comments/1rznoc1/claude_really_does_hit_different_but_how/</li>
+<li>Update v1.1.0 - Text Adventure Games — https://reddit.com/r/ClaudeAI/comments/1rzp2br/update_v110_text_adventure_games/</li>
+<li>Claude Code doesn&#x27;t replace domain knowledge, it amplifies it — https://x.com/gagansaluja08/status/2035332322061386148</li>
+<li>Claude Code shipping velocity — https://x.com/gagansaluja08/status/2035332671279173901</li>
+<li>Engineers are still needed — https://x.com/simonbalfe/status/2035332600697368604</li>
+<li>Vibe coding went mainstream in 2026 — https://x.com/Cryptinflux/status/2035331903918952684</li>
 </ul></article></div>
     </main>
   </div>
