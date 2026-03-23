@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Intellēctus No. 80</title>
+  <title>Intellēctus No. 81</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -142,14 +142,20 @@ body::after {
 }
 
 .history-sidebar li {
-  padding: 10px 0;
-  cursor: pointer;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+
+.history-link {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 8px;
-  border-bottom: 1px solid var(--rule-light);
-  transition: color 0.15s;
+  padding: 10px 0;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
 }
 
 .sidebar-refresh {
@@ -781,73 +787,68 @@ body::after {
       <a href="archive.html">← Archive</a>
     </nav>
     <main style="flex:1">
-<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Monday, March 23, 2026 · 12:01 PM</span><span>No. 80</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 23, 2026</h1>
-<p>Today&#x27;s digest is dense with research depth and developer energy: AI agents are autonomously running physics experiments, the Claude Code ecosystem is sprawling in every direction, and OpenAI is doubling down on headcount as legal pressure mounts. Here&#x27;s what matters.</p>
+<div class="digest-view"><header class="masthead"><hr class="masthead-rule"/><div class="masthead-meta"><span>Donna AI</span><span>Monday, March 23, 2026 · 12:01 PM</span><span>No. 81</span></div><h1>Intellēctus</h1><p class="masthead-tagline">Your Daily Artificial Intelligence Gazette</p><hr class="masthead-rule-bottom"/><hr class="masthead-rule-thick"/></header><article class="digest-content"><h1>AI Daily Briefing — March 23, 2026</h1>
+<p>Today&#x27;s dispatch is heavy on developer momentum: Claude Code is spreading across workflows, languages, and use cases at a pace that suggests it&#x27;s becoming the default agentic coding environment for a growing slice of the builder community. Meanwhile, OpenAI is doubling down on headcount, the research pipeline keeps churning out agentic benchmarks, and the AI influencer economy reaches its logical absurdity peak.</p>
 <hr/>
 <h2>Industry Moves</h2>
-<p><strong><a href="https://www.ft.com/content/7ffea5b4-e8bc-47cd-adb4-257f84c8028b">OpenAI to double its workforce</a></strong> as its business push intensifies, according to the Financial Times. The hiring surge signals a shift toward commercialization at scale, with the company aggressively expanding its go-to-market muscle alongside its research org. This comes as the competitive landscape tightens across every frontier model provider.</p>
-<p><strong><a href="https://niceguygeezer.substack.com/p/over-a-dozen-chatbot-harm-and-suicide">Over a dozen chatbot harm and suicide cases in California against OpenAI/ChatGPT</a></strong> have been consolidated into a single major litigation. The consolidation amplifies the legal weight of these claims and puts a spotlight on product liability frameworks for AI systems — a conversation the industry can no longer defer.</p>
+<p><a href="https://www.ft.com/content/7ffea5b4-e8bc-47cd-adb4-257f84c8028b">OpenAI plans to double its workforce</a> as its commercial push intensifies, signaling that the company is betting big on human capital even as AI automates more engineering tasks. The expansion reflects fierce competition at the frontier and the operational complexity of running large-scale API infrastructure, safety research, and go-to-market simultaneously. It&#x27;s a notable contrast to narratives about AI eliminating white-collar jobs — at least at the companies building the tools.</p>
+<p>A <a href="https://niceguygeezer.substack.com/p/over-a-dozen-chatbot-harm-and-suicide">consolidation of over a dozen chatbot harm and suicide-related lawsuits</a> against OpenAI and ChatGPT has been filed in California, forming what could become a landmark multi-plaintiff action against an AI company for real-world harm. The cases allege that chatbot interactions contributed to psychological harm or suicidal ideation, putting product liability squarely on the table for consumer AI deployments. How courts handle duty-of-care arguments for conversational AI will shape safety design requirements industry-wide.</p>
 <hr/>
 <h2>Research Papers</h2>
-<p><strong><a href="http://arxiv.org/abs/2603.20179v1">AI agents can now autonomously execute substantial portions of high-energy physics (HEP) analysis pipelines</a></strong> with minimal expert-curated input, per a new arXiv paper. Given access to a HEP codebase and data, LLM-based agents navigated real experimental workflows — a striking demonstration of domain-specific scientific autonomy that goes well beyond toy benchmarks.</p>
-<p><strong><a href="http://arxiv.org/abs/2603.20193v1">A new benchmark and taxonomy for VLM image tampering detection</a></strong> challenges the dominant reliance on object masks, arguing they severely misalign with actual edit signals. The paper introduces pixel- and meaning-level metrics, offering a more rigorous framework for evaluating whether vision-language models can detect manipulated images in the wild.</p>
-<p><strong><a href="http://arxiv.org/abs/2603.20172v1">Chain-of-thought faithfulness measurement turns out to be highly sensitive to how you measure it</a></strong>, according to new research on LLM CoT evaluation. Single aggregate numbers (e.g., &quot;DeepSeek-R1 acknowledges hints 39% of the time&quot;) mask substantial classifier-induced variance — meaning published faithfulness scores may not be directly comparable across studies.</p>
-<p><strong><a href="http://arxiv.org/abs/2603.20161v1">Semantic Token Clustering</a></strong> proposes a more efficient approach to uncertainty quantification in LLMs by grouping semantically similar tokens rather than treating each independently. The method reduces computational overhead while maintaining calibration quality, addressing a key bottleneck in deploying reliable LLMs at scale.</p>
+<p><a href="http://arxiv.org/abs/2603.20179v1">AI agents can now autonomously execute substantial portions of high-energy physics analysis pipelines</a> with minimal expert-curated input, according to a new preprint. Given access to a HEP codebase and datasets, LLM-based agents completed real experimental tasks — a striking demonstration of domain-specific agentic capability outside of software engineering. This points toward a future where frontier science workflows are co-piloted by AI with little hand-holding.</p>
+<p>A new benchmark paper proposes a <a href="http://arxiv.org/abs/2603.20193v1">richer taxonomy for VLM image tampering detection</a>, arguing that existing mask-based benchmarks fundamentally misalign with the actual edit signal — many pixels inside a mask are untouched, while meaningful edits can spill outside it. The work introduces new pixel-level and semantic metrics, raising the bar for what it means to evaluate multimodal forgery detection. Timely, given rapid advances in AI-generated image editing.</p>
+<p>Researchers studying <a href="http://arxiv.org/abs/2603.20172v1">chain-of-thought faithfulness find that measurement methodology matters enormously</a> — the same model&#x27;s CoT can appear more or less faithful depending entirely on which classifier you use to evaluate it. This casts doubt on widely-cited single-number CoT faithfulness scores (e.g., &quot;DeepSeek-R1 acknowledges hints 39% of the time&quot;) and suggests the field needs standardized evaluation protocols before drawing firm conclusions about model reasoning transparency.</p>
+<p>A multi-agent cybersecurity paper demonstrates that <a href="http://arxiv.org/abs/2603.20131v1">agentic architectures can deliver NIST CSF-aligned risk assessments for small organizations</a> at a fraction of the $15,000+ cost of traditional engagements. The architecture decomposes risk assessment into specialized sub-agents, suggesting a near-term path to democratizing security compliance for resource-constrained organizations.</p>
 <hr/>
-<h2>Agents &amp; Autonomy</h2>
-<p><strong><a href="http://arxiv.org/abs/2603.20185v1">VideoSeek</a></strong> introduces a tool-guided seeking approach for long-horizon video agents, moving away from dense frame sampling toward smarter, compute-efficient navigation of video content. This is a meaningful step toward practical video understanding agents that don&#x27;t choke on hours-long inputs.</p>
-<p><strong><a href="http://arxiv.org/abs/2603.20131v1">An agentic multi-agent architecture for cybersecurity risk management</a></strong> aims to democratize NIST CSF-aligned assessments for small organizations, where a traditional engagement costs $15K+ and takes weeks. The paper demonstrates that a coordinated AI agent system can approximate expert-level risk analysis at a fraction of the cost and time.</p>
-<p><strong><a href="http://arxiv.org/abs/2603.20132v1">A &quot;Virtual Study Group&quot; of AI agents applied to Gene Ontology knowledge discovery</a></strong> shows how multi-agent collaboration with hierarchical feature selection can surface biological insights from complex ontological data. It&#x27;s a niche but compelling demonstration of agentic AI boosting scientific literature synthesis.</p>
-<hr/>
-<h2>AI Safety &amp; Adversarial Research</h2>
-<p><strong><a href="http://arxiv.org/abs/2603.20122v1">Evolving Jailbreaks</a></strong> presents an automated multi-objective attack framework targeting LLMs via long-tail input distributions — the kinds of edge-case prompts that standard red-teaming misses. The paper argues that evolutionary search over attack strategies exposes safety gaps that single-pass adversarial testing won&#x27;t catch.</p>
-<p><strong><a href="http://arxiv.org/abs/2603.20170v1">Learning Dynamic Belief Graphs for Theory-of-Mind Reasoning</a></strong> tackles one of the harder alignment-adjacent problems: getting LLMs to accurately model how other agents&#x27; beliefs evolve over time. The approach uses structured graph representations to track shifting mental states, which has implications for both safety evaluation and socially-aware agents.</p>
+<h2>Agentic AI &amp; Autonomy</h2>
+<p><a href="http://arxiv.org/abs/2603.20185v1">VideoSeek</a> introduces a tool-guided seeking approach for long-horizon video understanding, breaking the dependency on dense frame sampling that makes most video agents computationally expensive. The agent learns to seek relevant segments rather than process everything, dramatically cutting inference cost on long videos. Efficient video reasoning is a critical unlock for real-world multimodal agents.</p>
+<p>A new paper on <a href="http://arxiv.org/abs/2603.20170v1">Theory of Mind reasoning proposes dynamic belief graphs</a> to help LLMs track how implicit, evolving beliefs shape human behavior in high-uncertainty scenarios. Static ToM benchmarks have been criticized for being too easy; this work targets the harder, temporally extended case where beliefs shift over time. Progress here matters for AI systems that need to model and collaborate with humans effectively.</p>
+<p>The <a href="http://arxiv.org/abs/2603.20164v1">CRISP framework</a> enables robots to self-refine social behaviors through VLM-based replanning and critique, without requiring predefined motion libraries or human feedback at runtime. The system generates a social action, critiques it via a VLM, and replans — a lightweight self-improvement loop for physical agents in social contexts.</p>
 <hr/>
 <h2>Claude Code Developer Corner</h2>
-<p>The Claude Code conversation today is rich with real-world workflows, ecosystem tooling, and emerging integration patterns — here&#x27;s the signal worth capturing.</p>
-<p><strong>Obsidian + Claude Code as a JARVIS-style personal knowledge agent</strong> is gaining traction in the Japanese developer community. The <a href="https://x.com/uslab1994/status/2035967131201028322">workflow described by @uslab1994</a> — installing Claude Code via <code>npm install -g @anthropic-ai/claude-code</code> and pointing it at an Obsidian vault — turns months of accumulated notes into a queryable, context-rich AI assistant. The practical insight: accumulated personal context is the moat, not the model itself.</p>
-<p><strong><a href="https://x.com/ZuckerbergRpt/status/2035966387739361759">Claude Code Channels</a></strong> is being discussed as Anthropic&#x27;s take on OpenClaw-style multi-agent orchestration setups, with multiple sources flagging the concept. The framing positions Channels as a way to coordinate parallel agent workstreams — aligning with the growing community practice of running <a href="https://x.com/dansyu_callenge/status/2035966413702402393">2–3 parallel Claude Code tasks simultaneously</a> before hitting cognitive/management overhead.</p>
-<p><strong>The Claude Agent SDK licensing question</strong> was clarified in the wild: <a href="https://x.com/konstiwohlwend/status/2035966557088862504">@konstiwohlwend confirmed</a> that the SDK bundles a binary CLI executable whose license permits redistribution, but the binary itself is <strong>not open-source</strong>. Developers building on top of the SDK and shipping it downstream should be aware of this distinction — it affects how you can package and distribute Claude Code-based tools.</p>
-<p><strong>140-tool scientific MCP server</strong>: <a href="https://x.com/_vmlops/status/2035966309935329576">@_vmlops highlighted</a> a newly surfaced MCP server packing 140 scientific capabilities — drug discovery pipelines, single-cell RNA-seq analysis, PubMed/ChEMBL/ClinVar/UniProt queries, clinical variant interpretation, and lab workflow automation. Plug it into Claude Code and you&#x27;ve got a capable computational biology co-pilot without writing the integrations yourself.</p>
-<p><strong>Context window expansion for opencode plugin</strong>: <a href="https://x.com/morphllm/status/2035966457658642729">@morphllm noted</a> that the opencode plugin currently supports 1M token context for Claude Code, with a target of 5M tokens within roughly a week. If accurate, this would meaningfully expand what&#x27;s possible for large codebase analysis in a single session.</p>
-<p><strong>Tool comparison landscape (2026)</strong>: A <a href="https://x.com/G1st_oritaka/status/2035966396786745518">detailed practical comparison of Cursor vs. Claude Code vs. GitHub Copilot</a> is circulating among Japanese developers, framed around real-world decision criteria. The community consensus forming: Claude Code leads for complex, multi-step autonomous tasks; Cursor wins for IDE-integrated inline editing; Copilot remains the low-friction default for teams already in the GitHub ecosystem.</p>
-<p><strong><a href="https://x.com/christso/status/2035966273482588521">allagents</a></strong> — a workspace manager for AI coding agent plugins — is positioning itself as a cross-tool layer handling marketplace registries, workspace configs, and MCP server lifecycle management across Claude Code, Copilot, Cursor, Codex, and others. Worth watching for teams managing multiple agent toolchains.</p>
-<p><strong><a href="https://x.com/phuongdateh/status/2035966150979518615">A simple course on Claude Code internals</a></strong> covering hooks, subagents, commands, and thinking mode has been shared by @phuongdateh — useful entry point for developers coming to the platform fresh.</p>
+<p><strong>Claude Code is going everywhere.</strong> The developer community is integrating Claude Code into an increasingly diverse set of workflows: one builder <a href="https://x.com/uslab1994/status/2035967131201028322">paired it with Obsidian vaults</a> to create a JARVIS-style personal knowledge assistant that answers questions from 6 months of accumulated research notes rather than generic internet data — the setup requires just <code>npm install -g @anthropic-ai/claude-code</code> and pointing it at a vault directory. Another developer <a href="https://x.com/OmeshHQ/status/2035965984776040485">built a full AI automation workflow on day one with zero prior coding experience</a> using VS Code + Claude Code. These aren&#x27;t power users — the tool is crossing into new audiences fast.</p>
+<p><strong>Claude Code Channels is generating buzz.</strong> Multiple sources are circulating coverage of <a href="https://x.com/ZuckerbergRpt/status/2035966387739361759">Claude Code Channels</a>, described as Anthropic&#x27;s take on OpenClaw-style multi-agent setups. The framing positions it as a structured way to orchestrate multiple Claude agents working in parallel — a capability that&#x27;s clearly in demand, with community discussion about <a href="https://x.com/dansyu_callenge/status/2035966413702402393">how many parallel tasks feel manageable</a> (consensus seems to land around 2–3 before cognitive overhead spikes).</p>
+<p><strong>The Agent SDK licensing nuance.</strong> A <a href="https://x.com/konstiwohlwend/status/2035966557088862504">clarifying thread</a> explains that the Claude Agent SDK bundles a CLI binary executable by default — the license permits shipping the binary, but the executable itself is not open-source. Developers building on the Agent SDK who plan to distribute their tools should be aware of this distinction before assuming full OSS portability.</p>
+<p><strong>140 scientific MCP tools for Claude Code.</strong> A widely-shared <a href="https://x.com/_vmlops/status/2035966309935329576">thread highlights an MCP server</a> that gives Claude Code 140 scientific capabilities — drug discovery pipelines, single-cell RNA-seq analysis, PubMed/ChEMBL/ClinVar/UniProt queries, clinical variant interpretation, and lab workflow automation. For researchers building AI-native science tooling, this is a significant force multiplier available today.</p>
+<p><strong>Context window expansion incoming.</strong> A developer working on an <a href="https://x.com/morphllm/status/2035966457658642729">opencode plugin</a> notes current support for a 1M-token context window with Claude Code, with plans to push to 5M within a week. For agentic workflows operating over large codebases, this headroom matters considerably.</p>
+<p><strong>Practical framing from the community:</strong> One sharp observation from a <a href="https://x.com/BoMiaoFinance/status/2035966955434410167">Chinese-language thread</a> cuts through the tool complexity: Claude Code is the engine; your <code>CLAUDE.md</code>, skills, and agent-memory files are the harness. You don&#x27;t need to understand the engine — you need to own the harness. A useful mental model for developers deciding where to invest configuration effort.</p>
+<p><strong>Comparison landscape.</strong> A <a href="https://x.com/G1st_oritaka/status/2035966396786745518">2026 practitioner comparison</a> of Cursor, Claude Code, and GitHub Copilot is making rounds — worth reading if you&#x27;re advising teams on tooling decisions. Meanwhile, <a href="https://x.com/christso/status/2035966273482588521">allagents</a> is emerging as a workspace manager that handles multi-agent plugin lifecycle across Claude Code, Copilot, Cursor, and Codex — marketplace registries, workspace configs, and MCP server management in one place.</p>
 <hr/>
 <h2>Worth Watching</h2>
-<p><strong><a href="https://www.theverge.com/ai-artificial-intelligence/898781/ai-personality-of-the-year-influencer-contest">AI Personality of the Year awards</a></strong> are now a thing, following AI beauty pageants and music contests. The Verge frames it as the inevitable commodification of AI-generated &quot;influencers&quot; — an odd corner of the ecosystem, but one that signals how normalized AI-generated personas have become in creator economies.</p>
-<p><strong><a href="https://reddit.com/r/MachineLearning/comments/1s1378o/r_is_this_paper_nonsense_dcdetector_dual/">DCDetector</a></strong>, the dual-attention contrastive learning paper for time series anomaly detection (KDD 2023, hundreds of citations), is under scrutiny on r/MachineLearning, with questions about whether its core claims hold up. Reproducibility concerns on high-citation papers are worth tracking — especially in the anomaly detection space where practitioners rely on benchmarks.</p>
-<p><strong><a href="https://reddit.com/r/MachineLearning/comments/1s147rf/d_modeling_online_discourse_escalation_as_a_state/">Modeling online discourse escalation as a state machine</a></strong> is an interesting framing from the ML community — treating conflict escalation as a sequence classification problem with a labeled dataset and transition rules. Early-stage work, but the problem formulation is novel enough to watch.</p>
-<p><strong><a href="https://x.com/pablooliva/status/2035966668245983377">CK Search MCP server</a></strong> adds semantic (meaning-based) search to note-taking systems, with a built-in MCP server interface for AI agents. For developers running Claude Code against personal knowledge bases, this closes the gap between keyword-matching search and intent-aware retrieval.</p>
+<p><strong><a href="https://www.theverge.com/ai-artificial-intelligence/898781/ai-personality-of-the-year-influencer-contest">AI Personality of the Year awards</a></strong> — After AI beauty pageants and music contests, the influencer economy has produced its inevitable AI awards season. Cultural artifact, business model, or harbinger? Probably all three.</p>
+<p><strong><a href="https://reddit.com/r/MachineLearning/comments/1s1378o/r_is_this_paper_nonsense_dcdetector_dual/">DCDetector paper integrity debate</a></strong> — A lively r/MachineLearning thread is questioning whether this KDD 2023 time-series anomaly detection paper (hundreds of citations) holds up to scrutiny. The ML reproducibility problem is not going away.</p>
+<p><strong><a href="https://reddit.com/r/MachineLearning/comments/1s147rf/d_modeling_online_discourse_escalation_as_a_state/">Discourse escalation as a state machine</a></strong> — A researcher is framing online conflict escalation as a classification/sequence modeling problem with a labeled dataset. Niche but interesting for anyone working on content moderation or social dynamics modeling.</p>
+<p><strong><a href="http://arxiv.org/abs/2603.20192v1">LumosX personalized video generation</a></strong> — New diffusion-based approach for fine-grained identity-attribute binding in video generation. The personalized video space is moving fast and this adds another capability layer.</p>
+<p><strong><a href="http://arxiv.org/abs/2603.20180v1">Adaptive greedy frame selection for long video VLMs</a></strong> — Complements VideoSeek with a different approach to the same problem: learning which frames to sample rather than sampling densely. Efficiency in video understanding is a recurring theme this cycle.</p>
 <hr/>
 <h3>Sources</h3>
 <ul>
+<li>AI personality of the year influencer contest — https://www.theverge.com/ai-artificial-intelligence/898781/ai-personality-of-the-year-influencer-contest</li>
 <li>OpenAI to double workforce as business push intensifies — https://www.ft.com/content/7ffea5b4-e8bc-47cd-adb4-257f84c8028b</li>
-<li>Over a dozen chatbot harm &amp; suicide cases in California consolidated — https://niceguygeezer.substack.com/p/over-a-dozen-chatbot-harm-and-suicide</li>
+<li>Over a dozen chatbot harm and suicide cases in California consolidated — https://niceguygeezer.substack.com/p/over-a-dozen-chatbot-harm-and-suicide</li>
 <li>AI Agents Can Already Autonomously Perform Experimental High Energy Physics — http://arxiv.org/abs/2603.20179v1</li>
-<li>From Masks to Pixels and Meaning: VLM Image Tampering Benchmark — http://arxiv.org/abs/2603.20193v1</li>
+<li>From Masks to Pixels and Meaning: A New Taxonomy, Benchmark, and Metrics for VLM Image Tampering — http://arxiv.org/abs/2603.20193v1</li>
 <li>Measuring Faithfulness Depends on How You Measure — http://arxiv.org/abs/2603.20172v1</li>
-<li>Semantic Token Clustering for Efficient Uncertainty Quantification — http://arxiv.org/abs/2603.20161v1</li>
-<li>VideoSeek: Long-Horizon Video Agent with Tool-Guided Seeking — http://arxiv.org/abs/2603.20185v1</li>
 <li>An Agentic Multi-Agent Architecture for Cybersecurity Risk Management — http://arxiv.org/abs/2603.20131v1</li>
-<li>Revisiting Gene Ontology Knowledge Discovery with AI Agent Virtual Study Groups — http://arxiv.org/abs/2603.20132v1</li>
-<li>Evolving Jailbreaks: Automated Multi-Objective Long-Tail Attacks on LLMs — http://arxiv.org/abs/2603.20122v1</li>
-<li>Learning Dynamic Belief Graphs for Theory-of-Mind Reasoning — http://arxiv.org/abs/2603.20170v1</li>
-<li>Obsidian + Claude Code JARVIS workflow (@uslab1994) — https://x.com/uslab1994/status/2035967131201028322</li>
-<li>Claude Code npm install setup (@uslab1994) — https://x.com/uslab1994/status/2035967129267183632</li>
-<li>Claude Code Channels discussion (@ZuckerbergRpt) — https://x.com/ZuckerbergRpt/status/2035966387739361759</li>
-<li>Claude Code Channels (@f_p_review) — https://x.com/f_p_review/status/2035966341203567004</li>
-<li>Parallel Claude Code tasks (@dansyu_callenge) — https://x.com/dansyu_callenge/status/2035966413702402393</li>
-<li>Claude Agent SDK binary license clarification (@konstiwohlwend) — https://x.com/konstiwohlwend/status/2035966557088862504</li>
-<li>140-tool scientific MCP server for Claude Code (@_vmlops) — https://x.com/_vmlops/status/2035966309935329576</li>
-<li>opencode plugin 1M→5M context window (@morphllm) — https://x.com/morphllm/status/2035966457658642729</li>
-<li>Cursor vs Claude Code vs Copilot 2026 comparison (@G1st_oritaka) — https://x.com/G1st_oritaka/status/2035966396786745518</li>
-<li>allagents workspace manager (@christso) — https://x.com/christso/status/2035966273482588521</li>
-<li>Claude Code course: hooks, subagents, commands (@phuongdateh) — https://x.com/phuongdateh/status/2035966150979518615</li>
-<li>AI Personality of the Year awards — https://www.theverge.com/ai-artificial-intelligence/898781/ai-personality-of-the-year-influencer-contest</li>
+<li>VideoSeek: Long-Horizon Video Agent with Tool-Guided Seeking — http://arxiv.org/abs/2603.20185v1</li>
+<li>Learning Dynamic Belief Graphs for Theory-of-mind Reasoning — http://arxiv.org/abs/2603.20170v1</li>
+<li>The Robot&#x27;s Inner Critic: Self-Refinement of Social Behaviors through VLM-based Replanning — http://arxiv.org/abs/2603.20164v1</li>
+<li>Obsidian + Claude Code JARVIS-style setup — https://x.com/uslab1994/status/2035967131201028322</li>
+<li>Obsidian + Claude Code setup instructions — https://x.com/uslab1994/status/2035967129267183632</li>
+<li>Zero-coding AI automation workflow with VS Code + Claude Code — https://x.com/OmeshHQ/status/2035965984776040485</li>
+<li>What is Claude Code Channels (ZuckerbergRpt) — https://x.com/ZuckerbergRpt/status/2035966387739361759</li>
+<li>What is Claude Code Channels (f_p_review) — https://x.com/f_p_review/status/2035966341203567004</li>
+<li>Parallel Claude Code task discussion — https://x.com/dansyu_callenge/status/2035966413702402393</li>
+<li>Claude Agent SDK licensing clarification — https://x.com/konstiwohlwend/status/2035966557088862504</li>
+<li>140 scientific MCP tools for Claude Code — https://x.com/_vmlops/status/2035966309935329576</li>
+<li>opencode plugin context window expansion — https://x.com/morphllm/status/2035966457658642729</li>
+<li>Claude Code engine vs harness mental model — https://x.com/BoMiaoFinance/status/2035966955434410167</li>
+<li>Cursor vs Claude Code vs GitHub Copilot 2026 comparison — https://x.com/G1st_oritaka/status/2035966396786745518</li>
+<li>allagents workspace manager for AI coding agents — https://x.com/christso/status/2035966273482588521</li>
 <li>DCDetector paper scrutiny on r/MachineLearning — https://reddit.com/r/MachineLearning/comments/1s1378o/r_is_this_paper_nonsense_dcdetector_dual/</li>
 <li>Modeling online discourse escalation as a state machine — https://reddit.com/r/MachineLearning/comments/1s147rf/d_modeling_online_discourse_escalation_as_a_state/</li>
-<li>CK Search MCP server for semantic note search (@pablooliva) — https://x.com/pablooliva/status/2035966668245983377</li>
+<li>LumosX: Relate Any Identities with Their Attributes for Personalized Video Generation — http://arxiv.org/abs/2603.20192v1</li>
+<li>Adaptive Greedy Frame Selection for Long Video Understanding — http://arxiv.org/abs/2603.20180v1</li>
 </ul></article></div>
     </main>
   </div>
