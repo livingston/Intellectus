@@ -20,7 +20,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: https://livingston.github.io/Intellectus/
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,6 +31,24 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: "."
+      # GitHub's Pages backend intermittently returns "Deployment failed, try
+      # again later." for a perfectly healthy artifact. Retry with backoff so a
+      # transient blip doesn't leave the site stale until the next cron publish.
       - name: Deploy to GitHub Pages
-        id: deployment
+        id: deploy1
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Back off before retry
+        if: steps.deploy1.outcome == 'failure'
+        run: sleep 30
+      - name: Deploy to GitHub Pages (retry 1)
+        id: deploy2
+        if: steps.deploy1.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Back off before final retry
+        if: steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure'
+        run: sleep 60
+      - name: Deploy to GitHub Pages (retry 2)
+        if: steps.deploy1.outcome == 'failure' && steps.deploy2.outcome == 'failure'
         uses: actions/deploy-pages@v4
